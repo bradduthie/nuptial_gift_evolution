@@ -38,6 +38,7 @@ int main(void){
     xdim       = 1;     /* dimension of x-loc landscape                       */
     ydim       = 1;     /* dimension of y-loc landscape                       */
     K          = 1000;  /* Population carrying capacity                       */
+    Nexp       = 3;     /* Conspecific encounters per capita                  */
     Tm_mu      = 0.00;  /* Error of offspring Tm from mean parent             */
     rg_mu      = 0.01;  /* Error of offspring rejg from mean parent           */
     N_mu       = 0.01;  /* Error of the neutral allele fro mean parent        */
@@ -69,7 +70,7 @@ int main(void){
     while(i < rep){
 
         nuptials(time_steps, N, Tm, Tf, rejg, mim, mom, gam, mov, a1, lambd, 
-                 xdim, ydim, K, stats, Tm_mu, rg_mu, N_mu);
+                 xdim, ydim, K, stats, Tm_mu, rg_mu, N_mu, Nexp);
                  
         i++;
 

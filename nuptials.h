@@ -47,4 +47,4 @@ void sumstats(double **inds, int N, int ind_traits, int stats, int ts,
 void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
               double mim, double mom, double gam, double mov, double a1,
               double lambd, int xdim, int ydim, int K, int stats, 
-              double Tm_mu, double rg_mu, double N_mu);
+              double Tm_mu, double rg_mu, double N_mu, double Nexp);

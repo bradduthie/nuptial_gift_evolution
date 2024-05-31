@@ -706,7 +706,7 @@ void sumstats(double **inds, int N, int ind_traits, int stats, int ts,
 void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
               double mim, double mom, double gam, double mov, double a1,
               double lambd, int xdim, int ydim, int K, int stats, 
-              double Tm_mu, double rg_mu, double N_mu){
+              double Tm_mu, double rg_mu, double N_mu, double Nexp){
 
     int ts, row, ind_traits, off_N, new_N, *ID, pid, i, j;
     double **inds, **offs, **news;
@@ -742,7 +742,7 @@ void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
 
         enter_mating_pool(inds, N);
 
-        get_offspring(inds, N, 3);
+        get_offspring(inds, N, Nexp);
 
         mortality(inds, N);
 
