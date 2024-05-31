@@ -16,6 +16,7 @@ int main(void){
 
     int i, time_steps, N, rep, xdim, ydim, K, stats, pid;
     double Tm, Tf, rejg, mim, mom, gam, mov, a1, lambd, Tm_mu, rg_mu, N_mu;
+    double Nexp;
     char outfile[20];
     FILE *fptr; 
 
