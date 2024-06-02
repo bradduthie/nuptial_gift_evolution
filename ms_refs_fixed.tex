@@ -355,19 +355,19 @@ gift is higher the more time \(T_{\mathrm{m}}\) is spent searching.
 During time-in, individuals encounter conspecifics at a rate of \(R\). A
 focal individual will therefore encounter conspecifics of the opposite
 sex at a rate of \(R/2\) if the ratio of males to females in the mating
-pool \(\beta\) is equal. More generally, males will be encountered at a
-rate of \(R\beta/(\beta+1)\), and females will be encountered at a rate
-of \(R/(\beta+1)\). An example of how the structure of the time-in
+pool (\(\beta\)) is equal. More generally, males will be encountered at
+a rate of \(R\beta/(\beta+1)\), and females will be encountered at a
+rate of \(R/(\beta+1)\). An example of how the structure of the time-in
 time-out model applies to a system with nuptial gift-giving is given in
 Figure 1. We assume that mating with a nuptial gift increases the
 fitness of each offspring by an increment of \(\gamma\). We proceed to
 find the thresholds \(\gamma_{\mathrm{m}}\) and \(\gamma_{\mathrm{f}}\)
 above which males and females are favoured by selection to search for
-nuptial gifts and exhibit choosiness for nuptial gifts, respectively. We
-show (see Methods) that the initial threshold value of \(\gamma\)
-(\(\gamma_{\mathrm{m}}\)) necessary for males to increase their fitness
-by investing time searching for a nuptial gift (time that could
-otherwise be spent searching for a mate) is,
+mates with nuptial gifts and exhibit choosiness for nuptial gifts,
+respectively. We show (see Methods) that the initial threshold value of
+\(\gamma\) (\(\gamma_{\mathrm{m}}\)) necessary for males to increase
+their fitness by investing time searching for a nuptial gift (time that
+could otherwise be spent searching for a mate) is,
 
 \begin{equation}
 \gamma_{\mathrm{m}} > \alpha \frac{R}{\beta + 1}.
@@ -394,8 +394,8 @@ which case the threshold fitness increment for females
 \end{equation}
 
 Inequality 3 shows that as offspring processing time
-(\(T_{\mathrm{f}}\)), mate encounter rate (\(R\beta / (\beta + 1)\)),
-and the probability of a male finding a nuptial gift
+(\(T_{\mathrm{f}}\)), mate encounter rate (\(R\beta / (\beta + 1)\)), or
+the probability of a male finding a nuptial gift
 (\(1 - \exp(-T_{\mathrm{m}}/\alpha)\) ) decreases, the threshold value
 of fitness above which selection will favour choosiness
 (\(\gamma_{\mathrm{f}}\)) increases. This can be understood intuitively
@@ -415,34 +415,35 @@ Methods).
 \centering
 \includegraphics{ms_refs_fixed_files/figure-latex/unnamed-chunk-3-1.pdf}
 \caption{Fitness thresholds above which males increase their fitness by
-searching for nuptial gifts (blue line; Eq. 2) and females increase
-their fitness by rejecting males that do not offer gifts (red line; Eq.
+searching for nuptial gifts (blue lines; Eq. 2) and females increase
+their fitness by rejecting males that do not offer gifts (red lines; Eq.
 3). Parameter space includes areas in which males do not search for
 nuptial gifts and females are not choosy (A), males search but females
 are not choosy (B), females would be choosy but males do not search (C),
-and males search and females are choosy (D). Arrows indicate the effect
-of increasing interaction rate (\(R\)), female time-out (\(T_{f}\)), and
-male search time (\(T_{m}\)). As an example, trajectories for
-\(T_{f} = 2\), and \(T_{m} = \alpha\) are shown for values of \(R=2\)
-(panel a) and \(R = 1\) (panel b). Females are assumed to be the choosy
-sex, which is maintained as long as \(\alpha < T_{f}\).}
+and males search and females are choosy (D). Arrows in panel a indicate
+the effect of increasing interaction rate (\(R\)), female time-out
+(\(T_{\mathrm{f}}\)), and male search time (\(T_{\mathrm{m}}\)). As an
+example, trajectories for \(T_{\mathrm{f}} = 2\), and
+\(T_{\mathrm{m}} = \alpha\) are shown for values of \(R=2\) (panel a)
+and \(R = 1\) (panel b). Females are assumed to be the choosy sex, which
+is maintained as long as \(\alpha < T_{\mathrm{f}}\).}
 \end{figure}
 
 The analytical framework predicts 4 zones, which are delineated by
 inequalities 2 and 3 and describe the initial thresholds for favouring
 search of nuptial gifts in males and choosiness for nuptial gifts in
-females (Figure 2). Consequently, the modelling framework gives a
+females (Figure 2a). Consequently, the modelling framework gives a
 description of the conditions under which nuptial gift-giving is
-expected to occur (Figure 2, Zone D) and the conditions under which only
-selection for male searching (Figure 2, Zone B) or female choosiness
-(Figure 2, Zone C) are predicted. These results therefore highlight the
-potential for sexual conflict over nuptial gift-giving.
+expected to occur (Figure 2a, Zone D) and the conditions under which
+only selection for male searching (Figure 2a, Zone B) or female
+choosiness (Figure 2a, Zone C) are predicted. These results therefore
+highlight the potential for sexual conflict over nuptial gift-giving.
 
 \hypertarget{evolution-of-male-search-and-female-choosiness}{%
 \subsection{Evolution of male search and female
 choosiness}\label{evolution-of-male-search-and-female-choosiness}}
 
-We use an individual-based model (IBM) to simulate the evolution of
+We used an individual-based model (IBM) to simulate the evolution of
 nuptial gift-giving and female choosiness from an ancestral condition in
 which neither exists. The IBM was written to satisfy the assumptions of
 our analytical time-in and time-out model as much as practical (see
@@ -455,20 +456,20 @@ produce offspring, respectively (time-out). Mortality occurs with a
 fixed probability in each time step, then a ceiling regulation is
 applied to limit population growth (see Methods).
 
-The rates at which males encounter females \(R_{\mathrm{m}}\) and
-females encounter males with nuptial gifts \(R_{\mathrm{f,G}}\) are
-calculated directly from the IBM, thereby modelling how these rates
-might be estimated from empirical data, so the male threshold for
-increasing fitness by searching is,
+The rates at which males encounter females \(R_{\mathrm{f},\mathrm{m}}\)
+and females encounter males with nuptial gifts
+\(R_{\mathrm{m_{G}}, \mathrm{f}}\) are calculated directly from the IBM,
+thereby modelling how these rates might be estimated from empirical
+data, so the male threshold for increasing fitness by searching is,
 
 \begin{equation}
-\gamma_{\mathrm{m, IBM}} > \alpha R_{\mathrm{m}}.
+\gamma_{\mathrm{m, IBM}} > \alpha R_{\mathrm{f},\mathrm{m}}.
 \end{equation}
 
 Similarly, female threshold for increasing fitness by choosiness is,
 
 \begin{equation}
-\gamma_{\mathrm{f, IBM}} > \frac{1}{T_{\mathrm{f}}R_{\mathrm{f,G}}}.
+\gamma_{\mathrm{f, IBM}} > \frac{1}{T_{\mathrm{f}}R_{\mathrm{m_{G}}, \mathrm{f}}}.
 \end{equation}
 
 Consequently, the IBM and the analytical model differ slightly (e.g.,
