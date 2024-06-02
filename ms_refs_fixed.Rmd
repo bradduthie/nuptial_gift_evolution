@@ -594,7 +594,7 @@ Future development of the IBM could further bridge the gap between models while 
 Nuptial gift-giving theory
 --------------------------------------------------
 
-When modelling nuptial gift evolution, the challenge is to construct a modelling framework that captures the frequency-dependent selection between male nuptial gift-giving and female preference for nuptial gifts, and we do this using a time-in, time-out model.
+When modelling nuptial gift evolution, the challenge is to construct a framework that captures the frequency-dependent selection between male nuptial gift-giving and female choosiness for nuptial gifts, and we do this using a time-in, time-out model.
 Recent studies have modelled some frequency-dependent aspect of nuptial gift giving using evolutionary game theory [@MaynardSmith1982; @Vincent2005]. 
 Two such studies formulated a quantitative genetics model to study evolutionarily stable nuptial gift sizes in populations where the female propensity to re-mate was evolving [@Iwasa2022; @Kamimura2021].
 The results obtained in these studies complement our results by giving equilibrium solutions to the evolutionary stable nuptial gift size, whereas we determine the general conditions under which nuptial gift-giving will evolve as given by the inequalities we derive.
@@ -620,6 +620,9 @@ The main drivers of male nuptial gift-giving are thought to be indirect fitness 
 However, nuptial gifts might also function to modulate female aggression and prevent sexual cannibalism [@Bilde2006]. 
 In some systems, such as *P. mirabilis*, males have been shown to reduce the risk of being cannibalised by the female after mating when offering a nuptial gift, such that the nuptial gift may result in a "shield effect", protecting the male [@Toft2016]. 
 
+Empirical predictions
+--------------------------------------------------
+
 The simulations parameterised with an experimentally estimated value of $\gamma$ showed evolution of nuptial gift searching in males and choosiness for nuptial gifts in females.
 The model thus predicts that *P. mirabilis* living under conditions with the estimated fitness value of nuptial gifts should exhibit both search for nuptial gifts and choosiness for males with nuptial gifts, and this is what is observed in empirical populations.
 Parameterising $\gamma$ with data from experimental studies may only yield a rough approximation of the true $\gamma$.
@@ -632,8 +635,11 @@ In some systems with nuptial gift-giving, females have been documented to mate m
 It is unclear what effect (if any) assuming non-sequential polyandry would have on the threshold we derive. 
 Under non-sequential polyandry, a viable strategy for females might be to accept any male (with or without gift) for fertilisation assurance, then exhibit a preference for nuptial gifts. 
 This might make choosiness less costly since it would entail less of an opportunity cost to be choosy, and this could potentially make female preference for nuptial gifts more likely to evolve. 
-Our model also assumes that males search in time out, rather than contribute to parental care, which is likely to be accurate for most systems but not all. 
+Our model also assumes that males search in time-out, rather than contribute to parental care, which is likely to be accurate for most systems but not all. 
 Expanding the model to explore these possibilities would be a worthwhile goal for future research.
+
+Conclusion
+--------------------------------------------------
 
 Overall, we found that a simple relationship between nuptial gift search time and mate encounter rate yields a threshold that determines whether selection will favour males that search for nuptial gifts. 
 Similarly, we found that the threshold determining whether females will be favoured to reject males without nuptial gifts is also dependent on these variables, along with offspring processing time.
@@ -651,7 +657,7 @@ Model
 --------------------------------------------------------------------------------
 
 Here we first present more detail for the derivation of fitness threshold values $\gamma_{\mathrm{m}}$ and $\gamma_{\mathrm{f}}$.
-We then present full details for IBM simulations (see Supporting Information S1). 
+We then present IBM simulations (see Supporting Information S1 for full details). 
 Code for simulations is available on GitHub (see "Data availability"). 
 
 Derivation of fitness thresholds
@@ -660,7 +666,7 @@ Derivation of fitness thresholds
 We use a time-in and time-out model in which females and males spend some time searching for a mate (time-in) followed by a period of cool down outside the mating pool (time-out; Figure 1).
 
 After mating, females must spend some time processing offspring ($T_{\mathrm{f}}$). 
-Male time to replenish sperm is assumed to be negligible, but males can spend time out of the mating pool to search for a nuptial gift ($T_{\mathrm{m}}$).
+Male time to replenish sperm is assumed to be negligible, but males can spend time out of the mating pool ($T_{\mathrm{m}}$) to search for a nuptial gift.
 When males return from time-out, they encounter females with some probability that is a function of the rate at which an individual encounters conspecifics ($R$) and the sex ratio ($\beta$; males/females). 
 Mortality occurs for females and males in ($\mu_{\mathrm{i,f}}$, $\mu_{\mathrm{i,m}}$) and out ($\mu_{\mathrm{o,f}}$, $\mu_{\mathrm{o,m}}$) of the mating pool. 
 Following @Kokko2006, we assume $m_{\mathrm{i,f}} = m_{\mathrm{o,f}} = 1$ and $m_{\mathrm{i,m}} = m_{\mathrm{o,m}} = 1$. 
@@ -675,21 +681,21 @@ Male fitness
 During time-out, males have the opportunity to search for a nuptial gift.
 Males can adopt one of two strategies; either search or do not search for a nuptial gift. 
 Males with the former strategy continue to search until they find a nuptial gift, while males that do not search will immediately re-enter the mating pool. 
-In this case, time searching for a nuptial gift will come at the cost of mating opportunities but might increase offspring fitness offspring. 
+In this case, time searching for a nuptial gift will come at the cost of mating opportunities but might increase offspring fitness. 
 We therefore need to model the expected length of time $E[T_{\mathrm{m}}]$ spent outside of the mating pool for males that search for nuptial gifts, which is simply $\alpha$. 
 Note that we can integrate search time $t$ over the rate at which nuptial gifts are encountered ($\exp(-1/\alpha)$) to show $E[T_{\mathrm{m}}] = \alpha$,
 
 $$E[T_{\mathrm{m}}] = \int_{0}^{\infty}e^{- \frac{1}{\alpha}t}dt = \alpha.$$
 
-The rate at which a focal male that searches for a nuptial gift increases his fitness is therefore the fitness of his offspring $(1 + \gamma)$ divided by expected time spent searching for a nuptial gift ($\alpha$) plus time spent in the mating pool, $(\beta + 1)/R$ (recall that females produce $\lambda$ offspring),
+The rate at which a focal male that searches for a nuptial gift ($\mathrm{M_{G}}$) increases his fitness is therefore the fitness of his offspring $(1 + \gamma)$ divided by expected time spent searching for a nuptial gift ($\alpha$) plus time spent in the mating pool, $(\beta + 1)/R$ (recall that females produce $\lambda$ offspring),
 
-$$W_{m,G} = \lambda \frac{1 + \gamma}{\alpha + \left( \frac{\beta + 1}{R} \right)}.$$
+$$W_{\mathrm{M_{G}}} = \lambda \frac{1 + \gamma}{\alpha + \left( \frac{\beta + 1}{R} \right)}.$$
 
-In contrast, a male that does not search for a nuptial gift has offspring with lower fitness, but spends less time outside of the mating pool,
+In contrast, a male that does not search for a nuptial gift ($\mathrm{M_{L}}$) has offspring with lower fitness, but spends less time outside of the mating pool,
 
-$$W_{m,L} = \lambda \frac{1}{\left(\frac{\beta+1}{R} \right)} = \lambda \frac{R}{\beta + 1}.$$
+$$W_{\mathrm{M_{L}}} = \lambda \frac{1}{\left(\frac{\beta+1}{R} \right)} = \lambda \frac{R}{\beta + 1}.$$
 
-We can then determine the conditions for which $W_{\mathrm{m},G} > W_{\mathrm{m},L}$, isolating $\gamma$ to find how large of a fitness benefit must be provided by the nuptial gift to make the search cost worthwhile, which simplifies to ineq. 2. 
+We can then determine the conditions for which $W_{\mathrm{M_{G}}} > W_{\mathrm{M_{L}}}$, isolating $\gamma$ to find how large of a fitness benefit must be provided by the nuptial gift to make the search cost worthwhile, which simplifies to ineq. 2. 
 When this inequality holds, males are favoured to search until they find a nuptial gift, which would result in an average search time of $\alpha$. 
 When the male trait is continuous (i.e., males search for time period $T_{\mathrm{m}}$), it can be shown that the same threshold can be reached by evaluating the partial derivative of the male fitness function (Supporting Information S3). 
 Hence, the thresholds are consistent under different assumptions concerning male searching strategy.
@@ -708,27 +714,27 @@ But if a female encounters a male with no nuptial gift, then she might accept or
 If she rejects the male, then she will remain in the mating pool. 
 The rate at which a female encounters a male with a nuptial gift is,
 
-$$R_{f,G} = R \left(\frac{\beta}{\beta + 1}\right)\left(1 - e^{-\frac{1}{\alpha}T_{m}}\right).$$
+$$R_{\mathrm{F_{G}}} = R \left(\frac{\beta}{\beta + 1}\right)\left(1 - e^{-\frac{1}{\alpha}T_{m}}\right).$$
 
 We can similarly model the rate at which a female encounters a gift-less male,
 
-$$R_{f,L} = R \left(\frac{\beta}{\beta + 1}\right)\left(e^{-\frac{1}{\alpha}T_{m}}\right).$$
+$$R_{\mathrm{F_{L}}} = R \left(\frac{\beta}{\beta + 1}\right)\left(e^{-\frac{1}{\alpha}T_{m}}\right).$$
 
 Note that we can recover the rate at which a female encounters any male,
 
 $$R \left(\frac{\beta}{\beta + 1}\right) = R \left(\frac{\beta}{\beta + 1}\right) \left(1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right) + R \left(\frac{\beta}{\beta + 1}\right) \left(e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right).$$ 
 
-If $R_{\mathrm{f},G}$ is sufficiently high and $R_{\mathrm{f},L}$ is sufficiently low, then finding a male with a gift will be easier than finding a male without one. 
-Also, the expected time spent in the mating pool before a focal female encounters a male with a gift will be $1/R_{\mathrm{f},G}$, while the expected time spent in the mating pool before a focal female encounters any male will be $1 / (R_{\mathrm{f},G} + R_{\mathrm{f},L})$.
-Finally, the rates at which a female encounters males with and without a gift, $R_{\mathrm{f},G}$ and $R_{\mathrm{f}, L}$, are different from the probabilities that a male encounter has or does not have a gift. 
+If $R_{\mathrm{F_{G}}}$ is sufficiently high and $R_{\mathrm{F_{L}}}$ is sufficiently low, then finding a male with a gift will be easier than finding a male without one. 
+Also, the expected time spent in the mating pool before a focal female encounters a male with a gift will be $1/R_{\mathrm{F_{G}}}$, while the expected time spent in the mating pool before a focal female encounters any male will be $1 / (R_{\mathrm{F_{G}}} + R_{\mathrm{F_{L}}})$.
+Finally, the rates at which a female encounters males with and without a gift, $R_{\mathrm{F_{G}}}$ and $R_{\mathrm{F_{L}}}$, are different from the probabilities that a male encounter has or does not have a gift. 
 The rate of encounter is no longer relevant in this case because we are assuming that an encounter has occurred. 
 Hence, the probability of an encountered male having a gift is simply,
 
-$$G = \frac{1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}}{\left(1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right) + e^{-\frac{1}{\alpha}T_{\mathrm{m}}}} = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+$$P(G) = \frac{1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}}{\left(1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right) + e^{-\frac{1}{\alpha}T_{\mathrm{m}}}} = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
 
 Similarly, the probability of an encountered male not having a gift is simply,
 
-$$L = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+$$P(L) = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
 
 The rate at which a female increases her fitness by being choosy and mating only when she encounters a male with a gift is,
 
@@ -739,21 +745,21 @@ $$W_{f, g} = \frac{1 + \gamma}{T_{F} + \frac{1}{M_{f,G}}}.$$
 --->
 
 \begin{equation}
-W_{\mathrm{f}, G} = \lambda \frac{1 + \gamma}{T_{\mathrm{f}} + \frac{1}{R_{\mathrm{f},G}}}.
+W_{\mathrm{F_{G}}} = \lambda \frac{1 + \gamma}{T_{\mathrm{f}} + \frac{1}{\mathrm{F_{G}}}.
 \end{equation}
 
 The top of the right-hand side of Eq. 6 gives the fitness increase, and the bottom gives the total time it takes to obtain this fitness. 
-The $R_{\mathrm{f},G}$ is inverted because it represents the expected time to encountering a male with a gift. 
+The $R_{\mathrm{F_{G}}}$ is inverted because it represents the expected time to encountering a male with a gift. 
 We can expand Eq. 6,
 
-$$W_{\mathrm{f},G} = \lambda \frac{1 + \gamma}{T_{f} + \frac{1}{R \left(\frac{\beta}{\beta + 1}\right)\left(1 - e^{-\frac{1}{\alpha}T_{m}}\right)}}.$$
+$$W_{\mathrm{F_{G}}} = \lambda \frac{1 + \gamma}{T_{\mathrm{f}} + \frac{1}{R \left(\frac{\beta}{\beta + 1}\right)\left(1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right)}}.$$
 
 If the focal female is not choosy and accepts the first male that she encounters, then the rate at which she increases her fitness is,
 
-$$W_{\mathrm{f},l} = \lambda \frac{\left(1 + \gamma\right)\left(1 - e^{-\frac{1}{\alpha}T_{m}}\right) + e^{-\frac{1}{\alpha}T_{m}}}{T_{f} + \frac{1}{R \left(\frac{\beta}{\beta + 1}\right)}}.$$
+$$W_{\mathrm{F_{G,L}}} = \lambda \frac{\left(1 + \gamma\right)\left(1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}\right) + e^{-\frac{1}{\alpha}T_{\mathrm{m}}}}{T_{f} + \frac{1}{R \left(\frac{\beta}{\beta + 1}\right)}}.$$
 
-We then evaluate the conditions under which $W_{\mathrm{f}, G} > W_{\mathrm{f}, L}$. 
-We isolate $\gamma$ to determine how much offspring fitness must be increase to make choosiness beneficial ($\gamma_{\mathrm{f}}$),
+We then evaluate the conditions under which $W_{\mathrm{F_{G}}} > W_{\mathrm{F_{G,L}}}$. 
+We isolate $\gamma$ to determine how much offspring fitness must be increased to make choosiness beneficial ($\gamma_{\mathrm{f}}$),
 
 $$\gamma_{\mathrm{f}} > \frac{1 + \frac{1}{\beta}}{D T_{f} \left(1 - e^{-1\frac{1}{\alpha}T_{m}}\right)}.$$
 
@@ -777,7 +783,7 @@ Operational sex ratio
 ----------------------------
 
 We assume that the sex ratio is equal upon maturation. 
-Given this, Kokko and Monaghan [@Kokko2001] show that the operational sex ratio depends on the probability of finding an individual in 'time in',
+Given this, @Kokko2001 show that the operational sex ratio depends on the probability of finding an individual in time-in,
 
 <!---
 
@@ -789,7 +795,7 @@ $$\beta = \frac{\int_{t = 0}^{\infty} P_{IM}(t)dt}{\int_{t = 0}^{\infty} P_{IF}(
 \beta = \frac{\int_{t = 0}^{\infty} P_{IM}(t)dt}{\int_{t = 0}^{\infty} P_{IF}(t)dt}.
 \end{equation}
 
-In Eq. 8, $P_{IM}(t)$ and $P_{IF}(t)$ are the probabilities of finding a male and female in 'time in', respectively. 
+In Eq. 8, $P_{IM}(t)$ and $P_{IF}(t)$ are the probabilities of finding a male and female in time-in, respectively. 
 There is no closed form solution to the operational sex ratio, so we used recursion to calculate $\beta$ values for a given $T_{\mathrm{f}}$, $T_{\mathrm{m}}$, and $R$ (see Supporting Information S4),
 
 
@@ -797,19 +803,20 @@ Individual-based model
 ------------------------------------------
 
 We formulate an individual-based simulation model to test whether the predictions made by the analytical time-in time-out model are qualitatively the same under a similar simulation model. 
-We use the individual-based model to test whether the prediction hold in finite populations (see Supporting Information S6). 
+We use the individual-based model to test whether the prediction hold in finite populations. 
 The IBM was written in C. 
-All details of the initialisation, parameterisation and the specific simulations which we run, are described in the supporting information (see Supporting Information S1). 
+All details of the initialisation, parameterisation and the specific simulations which we run, are described in Supporting Information S1. 
 
 We use available experimental data on the effect of nuptial gifts on female offspring production to estimate the key parameter $\gamma$ (fitness increment from nuptial gift) and conducted a series of simulations where $\gamma$ was parameterised using this estimated value. 
-Details of the estimation of $\gamma$ are described in the supporting information (see Supporting Information S5).
+Details of the estimation of $\gamma$ are described in Supporting Information S5.
+Separate evolution of male search and female choice (i.e., without co-evolution) is simulated in Supporting Information S6.
 
 
 **Author contributions:** APC and ABD conceived the study. ABD constructed the modelling framework with input from APC. APC wrote the paper with input from ABD and ABD wrote the IBM model. TB and GB provided substantial comments on previous drafts and final text.
 
 **Acknowledgements:** Anders P. Charmouh was supported by the University of Aberdeen. A. Bradley Duthie was supported by the University of Stirling. Trine Bilde was supported by The Danish Council for Independent Research grant number 4002-00328B. We thank Maria Albo for making available data from a previous study which was useful for parameter estimating.
 
-**Data availability:** The simulation software was implemented in C and the full source code is available at https://github.com/bradduthie/Pisaura. 
+**Data availability:** The simulation software was implemented in C and the full source code is available at https://github.com/bradduthie/nuptial_gift_evolution. 
 
 **Competing interests:** The authors declare no competing interests.
 
@@ -847,7 +854,7 @@ We then summarise the simulations run and data collected.
 
 Before the first time step, a population of $N = 1000$ individuals is initialised. 
 Individuals are assigned unique IDs, and each is assigned to be female with a probability of $0.5$, else male. 
-Each individual $i$ is initialised with a starting value of female offspring processing time ($T^{i}_{\mathrm{f}}$), rejection rate for females ($\rho^{i}$), and male search time ($T^{i}_{\mathrm{m}}$). 
+Each individual $i$ is initialised with a starting value of female offspring processing time ($T^{i}_{\mathrm{f}}$), rejection probability of gift-less males ($\rho^{i}$), and male search time ($T^{i}_{\mathrm{m}}$). 
 For all simulations, initialised values are set to $T^{i}_{\mathrm{f}} = 2$, $\rho^{i} = 0$, and $T^{i}_{\mathrm{m}} = 0$. 
 All individuals are initalised outside of the mating pool in the first time step $t = 1$. 
 The first time step then proceeds with females immediately entering the mating pool and males either entering the mating pool or searching for nuptial gifts.
@@ -867,7 +874,7 @@ Females leave the mating pool and enter time-out to process offspring, and males
 
 *Time-out*
 
-During time out, a focal female $i$ will produce $\lambda_{i} \sim Poisson(\lambda)$ offspring if no nuptial gift was provided or $\lambda_{i} \sim Poisson(\lambda + \gamma)$ if a gift was provided. 
+During time-out, a focal female $i$ will produce $\lambda_{i} \sim Poisson(\lambda)$ offspring if no nuptial gift was provided or $\lambda_{i} \sim Poisson(\lambda + \gamma)$ if a gift was provided. 
 Females remain outside of the mating pool to process offspring for $T^{i}_{\mathrm{f}}$ time steps, where $T^{i}_{\mathrm{f}}$ is sampled randomly for each individual from a Poisson distribution with a rate parameter of $T_{\mathrm{f}}$, $T^{i}_{\mathrm{f}} \sim Poisson(T_{\mathrm{f}})$. 
 Offspring are added to the population immediately, with $\rho^{i}$ and $T^{i}_{\mathrm{m}}$ values that are the average of each parent plus some normally distributed error $\epsilon_{R}$ and $\epsilon_{T_{\mathrm{m}}}$. 
 For example,
@@ -905,7 +912,7 @@ Summary statistics for mean trait values, population size, sex ratios, proportio
 The C code used for simulating these IBMs also allows for the reporting of statistics in each time step. 
 Additionally, it can simulate explicit space and individual movement through the landscape. 
 A neutral evolving trait was also modelled to ensure that the code functioned as intended, and processes were compartmentalised into individual functions to facilitate code testing. 
-All code is publicly available on GitHub (https://github.com/bradduthie/Pisaura).
+All code is publicly available on GitHub (https://github.com/bradduthie/nuptial_gift_evolution).
 
 A set of simulations with a value of $\gamma$ calculated from empirical data was also conducted. 
 Here, $\gamma$ was parameterised using data on egg production as a function of eating nuptial gifts (see below). 
@@ -923,12 +930,12 @@ S2: Sensitivity analysis of parameters in IBM
 
 **Mortality**
 
-We conducted a sensitivity analysis of the effect of the mortality parameters $\mu_{\mathrm{in}}$ and $\mu_{\mathrm{out}}$ (the probability of mortality in time in and time out, respectively, which we assumed to be equal for all individuals) on the evolution of male search and female choice using the IBM (See S1). 
+We conducted a sensitivity analysis of the effect of the mortality parameters $\mu_{\mathrm{in}}$ and $\mu_{\mathrm{out}}$ (the probability of mortality in time-in and time-out, respectively, which we assumed to be equal for all individuals) on the evolution of male search and female choice using the IBM (See S1). 
 The results revealed no correlation between the value of the mortality parameters and the evolution of male search or female choice (Fig. S2.1).
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.1: Evolution of both male search (blue) and female choice (red) under different combinations of the mortality rates $\\mu_{\\mathrm{in}}$ and $\\mu_{\\mathrm{out}}$ (mortality in time in and out, respectively). The y-axis is the threshold fitness that leads to evolution of male search (blue) or female choice (red). The results show noise, but no correlation between the value of the mortality parameters and the propensity for male search and/or female choice to evolve. For each of the $25 \\times 20$ combinations of $\\mu_{\\mathrm{in}}$ and $\\mu_{\\mathrm{out}}$, 1600 replicate simulations were run."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.1: Evolution of both male search (blue) and female choice (red) under different combinations of the mortality rates $\\mu_{\\mathrm{in}}$ and $\\mu_{\\mathrm{out}}$ (mortality in time-in and out, respectively). The y-axis is the threshold fitness that leads to evolution of male search (blue) or female choice (red). The results show noise, but no correlation between the value of the mortality parameters and the propensity for male search and/or female choice to evolve. For each of the $25 \\times 20$ combinations of $\\mu_{\\mathrm{in}}$ and $\\mu_{\\mathrm{out}}$, 1600 replicate simulations were run."}
 SUMO <- read.csv("inst/SI_mortality.csv");
 mort_combn   <- paste(SUMO[,1], SUMO[,2]);
 mort_label   <- unique(paste(SUMO[,1], ", ", SUMO[,2], sep = ""));
@@ -1428,7 +1435,7 @@ S4: Operational sex ratio
 
 We assume that the ratio of males to femalesis the same upon individual maturation.
 Consequently, the operational sex ratio $\beta$ will be a function of $R$, $T_{f}$, and $T_{m}$ because these parameters determine the density of females and males in the mating pool versus outside of the mating pool.
-We start with the definition of $\beta$ as being the probability of finding an individual in 'time in' [@Kokko2001],
+We start with the definition of $\beta$ as being the probability of finding an individual in time-in [@Kokko2001],
 
 $$\beta = \frac{\int_{t=0}^{\infty}P_{IM}(t)dt}{\int_{t=0}^{\infty}P_{IF}(t)dt}$$
 
