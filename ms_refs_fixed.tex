@@ -243,12 +243,13 @@ modelling framework (\protect\hyperlink{ref-Lewis2014}{Lewis \emph{et
 al.}, 2014}; \protect\hyperlink{ref-Iwasa2022}{Iwasa \& Yamaguchi,
 2022}). Recent models describing the evolution of nuptial gift-giving
 have focused on co-evolution between male nuptial gift-giving and female
-propensity to remate, and the evolutionarily stable nuptial gift sizes
+propensity to remate, and evolutionarily stable nuptial gift sizes
 (\protect\hyperlink{ref-Kamimura2021}{Kamimura \emph{et al.}, 2021};
 \protect\hyperlink{ref-Iwasa2022}{Iwasa \& Yamaguchi, 2022}), but a
 general framework describing the conditions necessary for nuptial
 gift-giving to be initially favoured by selection is needed to
-understand when gift-giving should evolve.\\
+understand when gift-giving should evolve.
+
 Nuptial gift-giving may allow males to increase fitness by acquiring
 additional mates, indirect benefits (by increasing the fitness of
 offspring), prolonged copulations, and success in sperm competition
@@ -265,9 +266,10 @@ interests of both sexes may not always fully overlap. This can cause
 sexual conflict, which is a difference in the evolutionary interest
 between sexes that occurs when interaction between sexes results in a
 situation where neither sex can achieve an optimal outcome
-(\protect\hyperlink{ref-Parker2006}{Parker, 2006}) That is, under some
-conditions, it might for example be optimal for females to receive
-nuptial gifts, but not optimal for males to produce them.
+(\protect\hyperlink{ref-Parker2006}{Parker, 2006}). That is, under some
+conditions, it might for example be optimal for males but not females to
+mate if females do not benefit from mating with males without nuptial
+gifts.
 
 Much work has sought to explain how gift-giving tactics are maintained,
 with explanations including condition-dependent strategies, gift-giving
@@ -279,9 +281,10 @@ sensory traps (\protect\hyperlink{ref-Lubin2007}{Lubin \& Bilde, 2007};
 of such a system is the nuptial gift-giving nursery-web spider
 \emph{Pisaura mirabilis} where males may court females with or without
 nuptial gifts (\protect\hyperlink{ref-Bristowe1926}{Bristowe \& Locket,
-1926}). Here, males may provide females with costly nuptial gifts in the
-form of captured arthropod prey, and females may exhibit preference for
-males with a nuptial gift by rejecting males without a nuptial gift
+1926}; \protect\hyperlink{ref-Tuni2013a}{Tuni \emph{et al.}, 2013}).
+Here, males may provide females with costly nuptial gifts in the form of
+captured arthropod prey, and females may exhibit preference for males
+with a nuptial gift by rejecting males without a nuptial gift
 (\protect\hyperlink{ref-Albo2013}{Albo \emph{et al.}, 2013}).
 
 We develop a general framework for investigating the evolution of
@@ -332,7 +335,7 @@ duration of time (\(T_{\mathrm{m}}\)) out of the mating pool searching
 for nuptial gifts.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{inst/img/conceptual_figure} \caption{Conceptual figure inspired by Kokko and Ots (2006) illustrating how the modelling framework maps onto an example of a system wherein nuptial gifts are used, here \textit{Pisaura mirabilis}. Males have a probability of obtaining a nuptial gift while in time-out, which will affect their probability of mating while in time-in. They return to the mating pool (time-in) at a rate determined by the time spent searching for a nuptial gifts ($T_{m}$) and leave the mating pool (i.e. enter time-out) following the female encounter rate, which is dependent on ratio of males to females ($\beta$) and the encounter rate ($R$). The choosy sex (females) enter the mating pool at a rate depending in the time spent processing offspring ($T_{f}$) and leave the mating pool (i.e. enter time-out) at a rate that is dependent on $\beta$ and $R$. Males and females undergo sex-specific mortality $\mu$ during time-in and time-out. Image left to right: (1) male \textit{P. mirabilis}. (2) male \textit{P. mirabilis} presenting nuptial gift (white) to female. (3) Female \textit{P. mirabilis} protecting offspring. Photos: Alamy.}\label{fig:unnamed-chunk-2}
+\includegraphics[width=1\linewidth]{inst/img/conceptual_figure} \caption{Conceptual figure inspired by Kokko and Ots (2006) illustrating how the modelling framework maps onto an example of a system wherein nuptial gifts are used, here \textit{Pisaura mirabilis}. Males have a probability of obtaining a nuptial gift while in time-out, which will affect their probability of mating while in time-in. They return to the mating pool (time-in) at a rate determined by the time spent searching for a nuptial gifts ($T_{\mathrm{m}}$) and leave the mating pool (i.e. enter time-out) following the female encounter rate, which is dependent on the ratio of males to females ($\beta$) and the encounter rate ($R$). The choosy sex (females) enter the mating pool at a rate depending on the time spent processing offspring ($T_{\mathrm{f}}$) and leave the mating pool (i.e. enter time-out) at a rate that is dependent on $\beta$ and $R$. Males and females undergo sex-specific mortality $\mu$ during time-in and time-out. Image left to right: (1) male \textit{P. mirabilis}. (2) male \textit{P. mirabilis} presenting nuptial gift (white) to female. (3) Female \textit{P. mirabilis} protecting offspring. Photos: Alamy.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
 \hypertarget{criteria-for-male-search-and-female-choosiness}{%
@@ -518,8 +521,8 @@ observed in the \emph{P. mirabilis} system.
 \includegraphics{ms_refs_fixed_files/figure-latex/unnamed-chunk-5-1.pdf}
 \caption{The joint evolution of male search and female choosiness using
 a nuptial gift fitness increment (\(\gamma\)) that was estimated from
-experimental data for the species \emph{P. mirabilis} (Tuni et al.~2013;
-mean \(\gamma = 3.29 \pm\) SE via propagation of error for estimates of
+experimental data for the species \emph{P. mirabilis} (mean
+\(\gamma = 3.29 \pm\) SE via propagation of error for estimates of
 nuptial feeding a non-nuptial feeding groups: {[}1.47; 8.32{]}). Points
 show where the 95\% confidence interval exceeds 0 for female choosiness
 (red) and male search (blue). Each point includes data from 100
@@ -1773,7 +1776,7 @@ in the absence of any coevolution (Fig. S6.1).
 choosiness as a function of nuptial gift search time. Points show where
 the lower 95\% confidence interval of male search (blue) and female
 choosiness (red) exceeds zero, indicating evolution of nuptial gift
-search or choosiness. Each point includes data from \(2 imes 1600\)
+search or choosiness. Each point includes data from \(2 \times 1600\)
 replicate simulations with identical starting conditions. In the first
 batch, male search was constant and initialized at
 \(T_{\mathrm{m}} = \alpha\), and female choice was evolving. In the
