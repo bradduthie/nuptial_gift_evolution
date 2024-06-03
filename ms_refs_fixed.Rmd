@@ -745,7 +745,7 @@ $$W_{f, g} = \frac{1 + \gamma}{T_{F} + \frac{1}{M_{f,G}}}.$$
 --->
 
 \begin{equation}
-W_{\mathrm{F_{G}}} = \lambda \frac{1 + \gamma}{T_{\mathrm{f}} + \frac{1}{\mathrm{F_{G}}}.
+W_{\mathrm{F_{G}}} = \lambda \frac{1 + \gamma}{T_{\mathrm{f}}} + \frac{1}{\mathrm{F_{G}}}.
 \end{equation}
 
 The top of the right-hand side of Eq. 6 gives the fitness increase, and the bottom gives the total time it takes to obtain this fitness. 
@@ -772,7 +772,7 @@ $$\gamma_{f} > \frac{1}{T_{F}M\sqrt{\beta}\left(1 - e^{-\frac{1}{\alpha}T_{M}} \
 --->
 
 \begin{equation}
-\gamma_{\mathrm{f}} > \frac{1}{ T_{f} R\left(\frac{\beta}{\beta + 1}\right) \left(1 - e^{-1\frac{1}{\alpha}T_{\mathrm{m}}}\right)}.
+\gamma_{\mathrm{f}} > \frac{1}{T_{\mathrm{f}}} R\left(\frac{\beta}{\beta + 1}\right) \left(1 - e^{-1\frac{1}{\alpha}T_{\mathrm{m}}}\right).
 \end{equation}
 
 
@@ -834,12 +834,12 @@ Supporting Information
 
 | Information                                                   | Page |
 |---------------------------------------------------------------|------|
-| S1: Description of the individual-based simulation model      |  26  |
-| S2: Sensitivity analysis of mortality parameters in IBM       |  29  |
-| S3: Alternative derivation of male fitness threshold          |  31  |
-| S4: Operational sex ratio                                     |  33  |
-| S5: Estimation of key model parameter using experimental data |  35  |
-| S6: Separate evolution of male search and female choice       |  36  |
+| S1: Description of the individual-based simulation model      |  27  |
+| S2: Sensitivity analysis of mortality parameters in IBM       |  30  |
+| S3: Alternative derivation of male fitness threshold          |  41  |
+| S4: Operational sex ratio                                     |  43  |
+| S5: Estimation of key model parameter using experimental data |  45  |
+| S6: Separate evolution of male search and female choice       |  46  |
 
 \clearpage
 
@@ -863,10 +863,10 @@ The first time step then proceeds with females immediately entering the mating p
 
 At the start of each time step, females and males in the mating pool remain in it. 
 Females will enter the mating pool after processing offspring, and males will enter it after searching for nuptial gifts (see 'Time-out' below). 
-A fixed number of $\Psi = N\psi$ interactions between individuals occur in a single time step, where $N$ is population size and $\psi$ is a scaling parameter. 
-Since an interaction includes two conspecifics, each individual is expected to encounter a conspecific $2\psi$ times per time step (i.e., $R = 2\psi$).
-For each interaction, two individuals are randomly sampled, each with equal probability. 
-If both sampled individuals are within the mating pool and of different sexes, then a mating encounter occurs. 
+Up to $\Psi = N\psi$ interactions between individuals can occur in a single time step, where $N$ is population size and $\psi$ is a scaling parameter. 
+In each time step, $\Psi$ pairs of individuals are selected at random to interact.
+For each interaction, two different individuals are randomly selected from the population with equal probability.
+If the selected individuals are of different sexes, and both are in the mating pool, then a mating encounter occurs.
 If the male does not have a nuptial gift, then the female will reject him with a probability of $\rho^{i}$; if rejection occurs, then both individuals stay in the mating pool. 
 If rejection does not occur, or the male has a nuptial gift in the mating encounter, then the individuals mate. 
 Females leave the mating pool and enter time-out to process offspring, and males leave and enter time-out to potentially search for new nuptial gifts (note that females and males might re-enter the mating pool immediately within the same time step given sufficiently low search time; see Time-out below).
@@ -874,30 +874,31 @@ Females leave the mating pool and enter time-out to process offspring, and males
 
 *Time-out*
 
-During time-out, a focal female $i$ will produce $\lambda_{i} \sim Poisson(\lambda)$ offspring if no nuptial gift was provided or $\lambda_{i} \sim Poisson(\lambda + \gamma)$ if a gift was provided. 
-Females remain outside of the mating pool to process offspring for $T^{i}_{\mathrm{f}}$ time steps, where $T^{i}_{\mathrm{f}}$ is sampled randomly for each individual from a Poisson distribution with a rate parameter of $T_{\mathrm{f}}$, $T^{i}_{\mathrm{f}} \sim Poisson(T_{\mathrm{f}})$. 
+During time-out, offspring production and time outside of the mating pool are realised for each female by sampling from a Poisson distribution.
+A focal female $i$ will produce $Poisson(\lambda)$ offspring if no nuptial gift was provided or $Poisson(\lambda + \gamma)$ if a gift was provided. 
+Females remain outside of the mating pool to process offspring for $Poisson(T^{i}_{\mathrm{f}})$ time steps. 
 Offspring are added to the population immediately, with $\rho^{i}$ and $T^{i}_{\mathrm{m}}$ values that are the average of each parent plus some normally distributed error $\epsilon_{R}$ and $\epsilon_{T_{\mathrm{m}}}$. 
 For example,
 
-$$T^{\mathrm{offspring}}_{\mathrm{m}} \sim N\left(\frac{T^{\mathrm{mother}}_{\mathrm{m}}  + T^{\mathrm{father}}_{\mathrm{m}}}{2}, \epsilon_{T_{\mathrm{m}}} \right).$$
+$$T^{\mathrm{offspring}}_{\mathrm{m}} \sim \frac{T^{\mathrm{mother}}_{\mathrm{m}}  + T^{\mathrm{father}}_{\mathrm{m}}}{2} + N\left(0, \epsilon_{T_{\mathrm{m}}} \right).$$
 
 The variation generated by $\epsilon$ values simulates mutation upon which selection for traits can act. 
 In all simulations, $\epsilon = 0$ if a trait is fixed and $\epsilon = 0.01$ if the trait evolves. 
 Offspring sex is randomly assigned with equal probability as female or male. 
-Female offspring are immediately placed in the mating pool, and male offspring are out of the mating pool to search for nuptial gifts. 
+Female offspring are immediately placed in the mating pool, and male offspring are out of the mating pool to potentially search for nuptial gifts. 
 After a female has spent $T^{i}_{\mathrm{f}}$ time steps outside the mating pool, she will re-enter it.
 
-A focal male $i$ outside the mating pool will enter it if they have searched for a fixed number of $T^{i}_{\mathrm{m}}$ time steps, which is also sampled randomly from a Poisson distribution, $T^{i}_{\mathrm{m}} \sim Poisson(T_{\mathrm{m}})$. 
+A focal male $i$ outside the mating pool will enter it if he has searched for a fixed number of $T^{i}_{\mathrm{m}}$ time steps, which is also sampled randomly from a Poisson distribution, $Poisson(T^{i}_{\mathrm{m}})$. 
 If $T^{i}_{\mathrm{m}} = 0$, then the male immediately returns to the mating pool (in the same time step). 
-If $T^{i}_{\mathrm{m}} > 0$, then the male must wait outside the mating pool for $T^{i}_{\mathrm{m}}$ time steps, but will enter the mating pool with a nuptial gift with a probability,
+If $T^{i}_{\mathrm{m}} > 0$, then the male must wait outside the mating pool for $Poisson(T^{i}_{\mathrm{m}})$ time steps, but will enter the mating pool with a nuptial gift with a probability,
 
-$$G^{i} = 1 - e^{-\frac{1}{\alpha}T^{i}_{\mathrm{m}}}.$$
+$$P(G^{i}) = 1 - e^{-\frac{1}{\alpha}T^{i}_{\mathrm{m}}}.$$
 
 Males must always spend $T^{i}_{\mathrm{m}}$ time steps outside of the mating pool regardless of whether or not they are successful in obtaining a nuptial gift.
 
 *Mortality*
 
-At the end of time step, mortality occurs first with a fixed probability for all adults in the population, then with a probability caused by carrying capacity $K$ applied to all individuals (adults and offspring). 
+At the end of each time step, mortality occurs first with a fixed probability for all adults in the population, then with a probability caused by carrying capacity $K$ applied to all individuals (adults and offspring). 
 Mortality occurs in each time step with a fixed probability of $\mu$ regardless of the sex of the individual or its position in or out of the mating pool. 
 If after this fixed mortality is applied, the total population size $N > K$, then individuals are removed at random with equal probability until $N = K$. 
 Following adult mortality, a new time step begins with newly added offspring becoming adults.
@@ -907,14 +908,14 @@ Following adult mortality, a new time step begins with newly added offspring bec
 We ran simulations in which male search time and female choosiness evolved from an ancestral state of no searching and no choosiness. 
 In all simulations, $N$ was initialised at 1000 and $K = 1000$. 
 Simulations ran for $t_{max} = 40000$ time steps. 
-We set $T_{\mathrm{f}} = 2$, $\psi = 3$, and $\lambda = 1$ for all simulations, and we simulated across a range of $\alpha = \{0.1, 0.2, ..., 1.9, 2.0\}$ and $\gamma = \{0, 0.1, ..., 1.9, 2.0\}$ parameter values for 1600 replicates. 
+We set $T_{\mathrm{f}} = 2$, $\psi = 3$, and $\lambda = 1$ for all simulations, and we simulated across a range of $\alpha = \{0.1, 0.2, ..., 1.9, 2.0\}$ and $\gamma = \{0, 0.1, ..., 1.9, 2.0\}$ parameter values for 3200 replicates. 
 Summary statistics for mean trait values, population size, sex ratios, proportion of females and males in and out of the mating pool, and mean number of encounters per female and male within the mating pool were all calculated in the last time step. 
 The C code used for simulating these IBMs also allows for the reporting of statistics in each time step. 
 Additionally, it can simulate explicit space and individual movement through the landscape. 
 A neutral evolving trait was also modelled to ensure that the code functioned as intended, and processes were compartmentalised into individual functions to facilitate code testing. 
 All code is publicly available on GitHub (https://github.com/bradduthie/nuptial_gift_evolution).
 
-A set of simulations with a value of $\gamma$ calculated from empirical data was also conducted. 
+A set of simulations with a value of $\gamma$ calculated from empirical data was also conducted (100 replicates). 
 Here, $\gamma$ was parameterised using data on egg production as a function of eating nuptial gifts (see below). 
 Additional simulation sets with lower and upper bounds of the estimated $\gamma$ were subsequently run. 
 In the simulation sets with experimentally derived parameter values, all other parameters were identical to previous simulation batches.
@@ -928,10 +929,45 @@ Assuming these differences in feeding regimes correspond to eating versus not ea
 S2: Sensitivity analysis of parameters in IBM
 ------------------------------------
 
-**Mortality**
+We investigated the sensitivity of our results to individual mortality during time-in ($\mu_{\mathrm{in}}$) and time-out ($\mu_{\mathrm{out}}$), female processing time ($T_{\mathrm{f}}$), potential for interactions between conspecifics ($\psi$), and initialised male search time ($T_{\mathrm{m}}$).
+Across all of these simulations, there were challenges with statistical power.
+Evidence for the evolution of male search (blue points in figures) and female choosiness (red points in figures) was determined by the lower 95\% bootstrapped confidence interval of $T_{\mathrm{m}}$ and $T_{\mathrm{f}}$ values being greater than zero, respectively.
+This required a lot of replicate simulations in the main text (Figure 3), especially for values just above predicted thresholds and for female choosiness.
+Computation time was a limiting factor, even using a compiled language (C) and with access to a computing cluster.
+Absence of points above threshold values are not necessarily evidence that evolution of male search or female choosiness is not predicted to evolve in these regions of parameter space, but it does indicate that evolution of these traits is not necessarily assured given the stochasticity inherent to the IBM.
+Additional simulations can be conducted using the C code in the 'src' folder of the GitHub repository (https://github.com/bradduthie/nuptial_gift_evolution).
+Below, we explain the parameter values used in the sensitivity analysis in more detail.
+
+
+*Mortality*
 
 We conducted a sensitivity analysis of the effect of the mortality parameters $\mu_{\mathrm{in}}$ and $\mu_{\mathrm{out}}$ (the probability of mortality in time-in and time-out, respectively, which we assumed to be equal for all individuals) on the evolution of male search and female choice using the IBM (See S1). 
 The results revealed no correlation between the value of the mortality parameters and the evolution of male search or female choice (Fig. S2.1).
+
+*Female processing time*
+
+We also conducted a sensitivity analysis of female processing time $T_{\mathrm{f}}$. 
+To do this, we ran simulations at default values, but with $T_{\mathrm{f}} = 0.4$ (Figure S4.2) and $T_{\mathrm{f}} = 10.0$ (Figures S4.3).
+
+*Interactions between conspecifics*
+
+We conducted a sensitivity analysis on the encounter rate between conspecifics ($R$) by varying the value of $\psi$ (see S1).
+Under default simulations, $\psi = 3$.
+We also ran simulations in which $\psi = 1$ (Figure S4.4), $\psi = 2$ (Figure S4.5), $\psi = 4$ (Figure S4.6), and $\psi = 6$ (Figure S4.7), with all other parameters being set to default values.
+
+*Initialised male search time*
+
+Lastly, we conducted a sensitivity analysis on initialised male search time ($T_{\mathrm{m}}$).
+To do this, we ran simulations at default values, but initialised all males at $T_{\mathrm{m}} = 0.5$ (Figure S4.8) or $T_{\mathrm{m}} = 2.5$ (S4.9). 
+Note that under these initialisation conditions, it no longer makes sense to test whether or not $T_{\mathrm{m}}$ evolves to positive values, so we do not show predicted male search thresholds and focus only on female choosiness.
+Interestingly, while predictions given initialised $T_{\mathrm{m}} = 0.5$ are quite close for female choosiness thresholds, female choosiness does not appear to evolve given $T_{\mathrm{m}} = 2.5$.
+This might be due to low selection pressure to reject males without gifts due to their low frequency.
+In other words, while females would benefit from a strategy of rejecting gift-less males, a lack of realised encounters with gift-less males preclude the evolution of sustained selection for choosiness.
+
+
+
+\clearpage
+
 
 \captionsetup{labelformat=empty}
 
@@ -980,17 +1016,12 @@ mtext(text = expression(paste("Fitness threshold (", gamma[f], " & ",  gamma[m],
 \captionsetup{labelformat=default}
 
 
-
-
-**Female processing time**
-
-We also conducted a sensitivity analysis of female processing time $T_{\mathrm{f}}$. 
-To do this, we ran simulations at default values, but with $T_{\mathrm{f}} = 0.4$ (Figure S4.2) and $T_{\mathrm{f}} = 10.0$ (Figures S4.3).
+\clearpage
 
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.2 ($T_{\\mathrm{f}} = 0.4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 3000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=0.4$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.2 ($T_{\\mathrm{f}} = 0.4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=0.4$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
 SUMM_Tf0pt4 <- read.csv("inst/SI_Tf_0pt4.csv");
 
 alpha_vals <- sort(unique(SUMM_Tf0pt4[,1]));
@@ -1034,10 +1065,11 @@ for(i in 1:dim(SUMM_Tf0pt4)[1]){
 
 \captionsetup{labelformat=default}
 
+\clearpage
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.3 ($T_{\\mathrm{f}} = 10.0$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 3000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=10.0$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.3 ($T_{\\mathrm{f}} = 10.0$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=10.0$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
 SUMM_Tf10 <- read.csv("inst/SI_Tf_10pt0.csv");
 
 alpha_vals <- sort(unique(SUMM_Tf10[,1]));
@@ -1082,16 +1114,12 @@ for(i in 1:dim(SUMM_Tf10)[1]){
 \captionsetup{labelformat=default}
 
 
-**Interactions between conspecifics**
-
-We conducted a sensitivity analysis on the encounter rate between conspecifics ($R$) by varying the value of $\psi$, where $R = 2\psi$ (see S1).
-Under default simulations, $\psi = 3$ and $R = 6$.
-We also ran simulations in which $\psi = 1$ (Figure S4.4) and $\psi = 6$ (Figure S4.5), with all other parameters being set to default values.
+\clearpage
 
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.4 ($\\psi = 1$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 1000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.4 ($\\psi = 1$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 1000 interactions occur between individuals in each time step ($\\psi = 1$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp1   <- read.csv("inst/SI_Nexp_1.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp1[,1]));
@@ -1135,12 +1163,11 @@ for(i in 1:dim(SUMM_Nexp1)[1]){
 
 \captionsetup{labelformat=default}
 
-
-
+\clearpage
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 2$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 2000 interactions occur between individuals in each time step ($\\psi = 2$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp2   <- read.csv("inst/SI_Nexp_2.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp2[,1]));
@@ -1190,7 +1217,7 @@ for(i in 1:dim(SUMM_Nexp2)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.6 ($\\psi = 4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 4000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 4$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp4   <- read.csv("inst/SI_Nexp_4.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp4[,1]));
@@ -1240,7 +1267,7 @@ for(i in 1:dim(SUMM_Nexp4)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Approximately 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.7 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 6$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp6   <- read.csv("inst/SI_Nexp_6.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp6[,1]));
@@ -1290,7 +1317,7 @@ for(i in 1:dim(SUMM_Nexp6)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Caption here"}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.8 ($T_{\\mathrm{m}} = 0.5$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 1600 replicate simulations with identical starting conditions. The red line shows the threshold above which the mathematical model predicts that females should be choosy (male thresholds for search are not shown because simulations were initialised with males already searching for nuptial gifts). Up to 3000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 3$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Tm05   <- read.csv("inst/SI_Tm_0pt5.csv");
 
 alpha_vals   <- sort(unique(SUMM_Tm05[,1]));
@@ -1339,7 +1366,7 @@ for(i in 1:dim(SUMM_Tm05)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Caption here"}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.9 ($T_{\\mathrm{m}} = 2.5$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 1600 replicate simulations with identical starting conditions. The red line shows the threshold above which the mathematical model predicts that females should be choosy (male thresholds for search are not shown because simulations were initialised with males already searching for nuptial gifts). Up to 3000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 3$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Tm2p5   <- read.csv("inst/SI_Tm_2pt5.csv");
 
 alpha_vals   <- sort(unique(SUMM_Tm2p5[,1]));
@@ -1385,6 +1412,8 @@ for(i in 1:dim(SUMM_Tm2p5)[1]){
 
 \clearpage
 
+
+
 S3: Alternative derivation of male fitness threshold
 ------------------------------------
 
@@ -1393,17 +1422,17 @@ The expected length of time for which searching males are expected to remain out
 Alternatively, we can assume that males search for a period of $T_{\mathrm{m}}$ and spend this full duration of $T_{\mathrm{m}}$ in the time-out phase, even if they succeed in finding a nuptial gift.
 The probability that a male obtains a nuptial gift during this time is modelled in Eq. 1, 
 
-$$G = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+$$P(G) = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
 
 In Eq. 1, $\alpha$ is the amount of time expected to pass before a male encounters a nuptial gift. 
 We assume that a male will only enter the mating pool with no gift if they are unsuccessful in obtaining a gift, so the probability that a male obtains no gift after $T_{\mathrm{m}}$ is,
 
-$$L = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+$$P(L) = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
 
-For simplicity, we assume that the fitness increments to offspring associated with receiving a nuptial gift versus no nuptial gift are $1 + \gamma$ and 1, respectively. 
+We assume that the fitness increments to offspring associated with receiving a nuptial gift versus no nuptial gift are $1 + \gamma$ and 1, respectively. 
 The rate at which males increase their fitness can then be defined as the expected fitness increment from their nuptial gift search divided by $T_{\mathrm{m}}$ plus the time spent in the mating pool waiting to encounter a mate, 
 
-$$W_{\mathrm{m}} = \lambda \frac{G\left(1 + \gamma\right) + L}{T_{\mathrm{m}} + \left( \frac{\beta + 1}{R} \right)}.$$
+$$W_{\mathrm{m}} = \lambda \frac{P(G)\left(1 + \gamma\right) + P(L)}{T_{\mathrm{m}} + \left( \frac{\beta + 1}{R} \right)}.$$
 
 Our objective now is to determine the conditions under which a focal male increases its fitness by searching for a nuptial gift ($T_{\mathrm{m}}>0$) in a population of resident males that do not search ($T_{\mathrm{m}}=0$). 
 Females are assumed to exhibit no choice in males with versus without nuptial gifts. Under such conditions, male fitness cannot be affected by female choice, so selection to increase $T_{\mathrm{m}}>0$ must be based solely on $\alpha$, $\beta$, $R$, and $\gamma$.
@@ -1433,8 +1462,8 @@ The conditions under which male inclusive fitness increases by searching for a n
 S4: Operational sex ratio
 ------------------------------------
 
-We assume that the ratio of males to femalesis the same upon individual maturation.
-Consequently, the operational sex ratio $\beta$ will be a function of $R$, $T_{f}$, and $T_{m}$ because these parameters determine the density of females and males in the mating pool versus outside of the mating pool.
+We assume that the ratio of males to females is the same upon individual maturation.
+Consequently, the operational sex ratio $\beta$ will be a function of $R$, $T_{\mathrm{f}}$, and $T_{\mathrm{m}}$ because these parameters determine the density of females and males in the mating pool versus outside of the mating pool.
 We start with the definition of $\beta$ as being the probability of finding an individual in time-in [@Kokko2001],
 
 $$\beta = \frac{\int_{t=0}^{\infty}P_{IM}(t)dt}{\int_{t=0}^{\infty}P_{IF}(t)dt}$$
@@ -1475,7 +1504,7 @@ We used the above function to calculate values of $\beta$ for the analytical mod
 S5: Estimation of key model parameters using experimental data
 -------------------------------------
 
-Estimates showing mean number of offspring produced by female *Pisaura mirabilis* that ate nuptial gifts and females who did not. 
+Estimates showing the mean number of offspring produced by female *Pisaura mirabilis* that ate nuptial gifts and females who did not. 
 Means were calculated with raw data from @Tuni2013a and results are shown $\pm$ SE (Table 1).
 Under these assumptions, the relative gain in fitness from receiving nuptial gifts for a female is,
 
@@ -1491,7 +1520,7 @@ The value 3.29 was used to parameterise $\gamma$ for a set of simulations (Figur
 |---------------------------------|-----------------------|--------------------------|
 | Expected number of hatched eggs | $25.74 \pm 0.96$      | $6.00 \pm 2.1$           |
 
-Table 1: Estimates showing mean number of offspring produced by female *Pisauras mirabilis* that ate nuptial gifts and females who did not. Means were calculated with raw data from @Tuni2013a and results are shown $\pm$ SE.
+Table 1: Estimates showing mean number of offspring produced by female *P. mirabilis* that ate nuptial gifts and females who did not. Means were calculated with raw data from @Tuni2013a and results are shown $\pm$ SE.
 
 
 \clearpage
@@ -1501,10 +1530,10 @@ S6: Separate evolution of male search and female choice
 -------------------------------------
 
 We used the individual-based simulation model (see Supporting Information S1) to unpack the effect of coevolution on the evolution of male search and female choice. 
-Specifically, we replicated the simulations shown in the main text under the condition where only one trait at a time was allowed to evolve and studied how this affected the trait evolution. 
+Here we replicated the simulations shown in the main text under the condition where only one trait at a time was allowed to evolve and studied how this affected the trait evolution. 
 
 First, we submitted a set of simulations wherein male search did not evolve, but was fixed at different values (see Fig. S6.1). 
-Next, we ran the same set of simulations wherein male search evolved, but female choice was not possible). 
+Next, we ran the same set of simulations wherein male search evolved, but female choice was not possible. 
 The results thus show how each trait evolves in the absence of any coevolution (Fig. S6.1). 
 
 \captionsetup{labelformat=empty}
