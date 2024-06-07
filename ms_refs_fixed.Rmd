@@ -4,6 +4,7 @@ author: |
   | Anders P. Charmouh$^{1,4, 5}$, Trine Bilde$^{2}$, Greta Bocedi$^{1}$, A. Bradley Duthie$^{3}$
 date: '[1] School of Biological Sciences, University of Aberdeen, UK. [2] Department of Biology, Aarhus University, Denmark. [3] Biological and Environmental Sciences, University of Stirling, UK.  [4] Bioinformatics Research Centre Aarhus University, University City 81, building 1872, 3rd floor, DK-8000 Aarhus C, Denmark [5] Email: apc@birc.au.dk'
 output:
+  html_document: default
   pdf_document:
     fig_caption: yes
     keep_tex: yes
@@ -13,7 +14,6 @@ output:
     - --csl
     - evolution-letters.csl
     reference_docx: docx_template.docx
-  html_document: default
 bibliography: nuptial_refs.bib
 header-includes:
 - \usepackage{amsmath}
@@ -620,7 +620,7 @@ The main drivers of male nuptial gift-giving are thought to be indirect fitness 
 However, nuptial gifts might also function to modulate female aggression and prevent sexual cannibalism [@Bilde2006]. 
 In some systems, such as *P. mirabilis*, males have been shown to reduce the risk of being cannibalised by the female after mating when offering a nuptial gift, such that the nuptial gift may result in a "shield effect", protecting the male [@Toft2016]. 
 
-Empirical predictions
+Empirical implications
 --------------------------------------------------
 
 The simulations parameterised with an experimentally estimated value of $\gamma$ showed evolution of nuptial gift searching in males and choosiness for nuptial gifts in females.
@@ -1021,8 +1021,8 @@ mtext(text = expression(paste("Fitness threshold (", gamma[f], " & ",  gamma[m],
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.2 ($T_{\\mathrm{f}} = 0.4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=0.4$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
-SUMM_Tf0pt4 <- read.csv("inst/SI_Tf_0pt4.csv");
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.2 ($T_{\\mathrm{f}} = 0.5$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from approximately 1600 replicate simulations with identical starting conditions (some parameter combinations have fewer replicates). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=0.5$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
+SUMM_Tf0pt4 <- read.csv("inst/SI_Tf_0pt5.csv");
 
 alpha_vals <- sort(unique(SUMM_Tf0pt4[,1]));
 TM_vals    <- tapply(X = SUMM_Tf0pt4[,3],  INDEX = SUMM_Tf0pt4[,1], FUN = mean);
@@ -1035,7 +1035,7 @@ Mf_nonupt  <- tapply(X = SUMM_Tf0pt4[,18], INDEX = SUMM_Tf0pt4[,1], FUN = mean);
 
 g_m  <- male_IBM_criteria(Male_M = Male_M, alpha = alpha_vals, lambda = 1);
 g_f  <- female_IBM_criteria(MGf = Mf_nupt, MLf = Mf_nonupt, lambda = 1, 
-                            TF = 0.4);
+                            TF = 0.5);
 
 par(mar = c(5, 5, 1, 1)); 
 plot(x = alpha_vals, y = g_f, type = "l", lwd = 2, cex.lab = 1.25, col = "red",
@@ -1069,7 +1069,7 @@ for(i in 1:dim(SUMM_Tf0pt4)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.3 ($T_{\\mathrm{f}} = 10.0$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=10.0$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.3 ($T_{\\mathrm{f}} = 10.0$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of female choosiness (red) and male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from approximately 1600 replicate simulations with identical starting conditions (some parameter combinations include fewer replicates). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 3000 interactions occur between individuals in each time step ($\\psi = 3$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=10.0$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.5, 1.5] and [0.1, 2.1], respectively, were used."}
 SUMM_Tf10 <- read.csv("inst/SI_Tf_10pt0.csv");
 
 alpha_vals <- sort(unique(SUMM_Tf10[,1]));
@@ -1119,7 +1119,7 @@ for(i in 1:dim(SUMM_Tf10)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.4 ($\\psi = 1$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 1000 interactions occur between individuals in each time step ($\\psi = 1$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.4 ($\\psi = 1$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from approximately 1600 replicate simulations with identical starting conditions (some parameter combinations had fewer replicates, minimum 400). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 1000 interactions occur between individuals in each time step ($\\psi = 1$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp1   <- read.csv("inst/SI_Nexp_1.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp1[,1]));
@@ -1167,7 +1167,7 @@ for(i in 1:dim(SUMM_Nexp1)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 2$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 2000 interactions occur between individuals in each time step ($\\psi = 2$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.5 ($\\psi = 2$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 1600 replicate simulations with identical starting conditions (some parameter combinations have fewer replicates). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 2000 interactions occur between individuals in each time step ($\\psi = 2$), potentially resulting in a mating interaction. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp2   <- read.csv("inst/SI_Nexp_2.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp2[,1]));
@@ -1217,7 +1217,7 @@ for(i in 1:dim(SUMM_Nexp2)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.6 ($\\psi = 4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 4000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 4$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.6 ($\\psi = 4$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 1600 replicate simulations with identical starting conditions (some parameter combinations have fewer replicates). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 4000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 4$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp4   <- read.csv("inst/SI_Nexp_4.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp4[,1]));
@@ -1267,7 +1267,7 @@ for(i in 1:dim(SUMM_Nexp4)[1]){
 
 \captionsetup{labelformat=empty}
 
-```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.7 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 720 replicate simulations with identical starting conditions. Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 6$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
+```{r echo = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Figure S4.7 ($\\psi = 6$): The coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$). Points show where the lower 95% confidence interval of where male search (blue) exceeds zero, indicating evolution of choosiness or nuptial gift search. Each point includes data from 1600 replicate simulations with identical starting conditions (some parameter combinations have fewer replicates). Red and blue lines show thresholds above which the mathematical model predicts that females should be choosy and males should search, respectively. Up to 6000 interactions occur between individuals in each time step, potentially resulting in a mating interaction ($\\psi = 6$). The number of individuals in the population remained at or near carrying capacity of $K = 1000$. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 1.4] and [0.1, 1.2], respectively, were used."}
 SUMM_Nexp6   <- read.csv("inst/SI_Nexp_6.csv");
 
 alpha_vals   <- sort(unique(SUMM_Nexp6[,1]));
