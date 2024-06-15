@@ -4,16 +4,16 @@ author: |
   | Anders P. Charmouh$^{1,4, 5}$, Trine Bilde$^{2}$, Greta Bocedi$^{1}$, A. Bradley Duthie$^{3}$
 date: '[1] School of Biological Sciences, University of Aberdeen, UK. [2] Department of Biology, Aarhus University, Denmark. [3] Biological and Environmental Sciences, University of Stirling, UK.  [4] Bioinformatics Research Centre Aarhus University, University City 81, building 1872, 3rd floor, DK-8000 Aarhus C, Denmark [5] Email: apc@birc.au.dk'
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution-letters.csl
     reference_docx: docx_template.docx
+  html_document: default
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
 bibliography: nuptial_refs.bib
 header-includes:
 - \usepackage{amsmath}
