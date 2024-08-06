@@ -31,36 +31,26 @@ void swap_arrays(void **ARRAY_A, void **ARRAY_B){
 void male_search(double **inds, int male){
 
   double time_out, pr_gift, rand_unif;
-
-  time_out = 0.0;
-  pr_gift  = 0.0;
-  if(inds[male][5] > 0){
-    time_out  = (double) randpois(inds[male][5]);
-    if(inds[male][13] <= 0){
-        pr_gift = 1.0;
+  /* Tested -- gets geometric distribution equivalent of exponential */
+  if(inds[male][5] > 0 || inds[male][29] > 0){
+    pr_gift   = 1 - exp(-1 / inds[male][13]);
+    time_out  = 0.0;
+    rand_unif = randunif();
+    while(rand_unif > pr_gift){
+      time_out++;
+      rand_unif = randunif();
+    }
+    inds[male][7]  = 1;
+    inds[male][25] = 1;
+    
+    if(time_out > 0){
+      inds[male][4]  = 0.0;
+      inds[male][23] = time_out;
     }else{
-        pr_gift = 1 - exp(-1 * inds[male][5] / inds[male][13]);
+      inds[male][4]  = 1.0;
+      inds[male][23] = 0.0;
     }
   }
-  
-  rand_unif = randunif();
-
-  if(rand_unif < pr_gift){
-    inds[male][7]  = 1.0;
-    inds[male][25] = 1.0;
-  }else{
-    inds[male][7]  = 0.0;
-    inds[male][25] = 0.0;
-  }
-
-  if(time_out > 0){
-    inds[male][4]  = 0.0;
-    inds[male][23] = time_out;
-  }else{
-    inds[male][4]  = 1.0;
-    inds[male][23] = 0.0;
-  }
-
 }
 
 /******************************************************************************/
@@ -100,7 +90,7 @@ void initialise(int N, double Tm, double Tf, double rejg, double mim,
       inds[row][5]  = Tm;                        /* Male search time          */
       inds[row][6]  = Tf;                        /* Female processing time    */
       inds[row][7]  = 0.0;                       /* Male has nuptial gift?    */
-      inds[row][8]  = rejg;                      /* Female rejection prob     */
+      inds[row][8]  = rejg;                      /* Female rejection allele   */
       inds[row][9]  = mim;                       /* Mortality in mating pool  */
       inds[row][10] = mom;                       /* Mortality out mating pool */
       inds[row][11] = gam;                       /* Bonus for nuptial gift    */
@@ -120,7 +110,10 @@ void initialise(int N, double Tm, double Tf, double rejg, double mim,
       inds[row][25] = 0.0;                       /* Had a gift?               */
       inds[row][26] = 0.0;                       /* Female enc male nuptials  */
       inds[row][27] = 0.0;                       /* Female enc male no nupts  */ 
-      inds[row][28] = 0.0;                       /* mortality increment  */ 
+      inds[row][28] = 0.0;                       /* mortality increment       */ 
+      inds[row][29] = Tm;                        /* Second allele male search */
+      inds[row][30] = rejg;                      /* Second allele fem reject  */
+      inds[row][31] = 0.0;                       /* Second neutral allele     */
       if(inds[row][1] > 0){
         male_search(inds, row);
       }
@@ -169,9 +162,8 @@ void female_male_int(double **inds, int female, int male){
     inds[female][21]++;
     inds[male][21]++;
 
-    rej_gift = inds[female][8];
-    acceptml = randunif();
-    if(rej_gift < acceptml || inds[male][7] > 0){
+    rej_gift = inds[female][8] + inds[female][30];
+    if(rej_gift < 1 || inds[male][7] > 0){
       if(inds[male][7] > 0){
         inds[female][20]  = 1.0;
       }else{
@@ -327,17 +319,36 @@ int find_dad(double **inds, int N, double dad_ID){
 /******************************************************************************/
 /* Offspring trait from mum and dad                                           */
 /******************************************************************************/
-double off_trait(double **inds, int mum_row, int dad_row, int trait_col, 
-                 double mu){
+double off_trait(double **inds, int parent_row, int trait_col, double mu){
     
-    double p_mean, mu_val, off_val;
-
-    p_mean = 0.5 * (inds[mum_row][trait_col] + inds[dad_row][trait_col]);
-    mu_val = randnorm(0, mu);
-
-    off_val = p_mean + mu_val;
-
+    int mutates, par_val, off_val;
+  
+    par_val = (int) inds[parent_row][trait_col];
+    off_val = par_val;
+    mutates = randbinom(mu);
+    if(mutates > 0){
+      off_val = (1 - par_val) * (1 - par_val);
+    }
+    
     return off_val;
+}
+
+
+/******************************************************************************/
+/* Swap traits to simulate crossover                                          */
+/******************************************************************************/
+void crossover(double **inds, int loc1, int loc2, double rate, int pos){
+  
+  int crossover;
+  double temp_val;
+  
+  crossover = randbinom(rate);
+  
+  if(crossover > 0){
+    temp_val        = inds[pos][loc1];
+    inds[pos][loc1] = inds[pos][loc2];
+    inds[pos][loc2] = temp_val;
+  }
 }
 
 
@@ -367,10 +378,10 @@ void add_offspring(double **inds, int N, double **offs, int off_N, int traits,
             }else{
               offs[off_pos][4]  = 0.0;
             }
-            offs[off_pos][5]  = off_trait(inds, mum_row, dad_row, 5, Tm_mu);
-            offs[off_pos][6]  = off_trait(inds, mum_row, dad_row, 6, 0.0);
+            offs[off_pos][5]  = off_trait(inds, mum_row, 5, Tm_mu);
+            offs[off_pos][6]  = off_trait(inds, mum_row, 6, 0.0);
             offs[off_pos][7]  = 0.0;
-            offs[off_pos][8]  = off_trait(inds, mum_row, dad_row, 8, rg_mu);
+            offs[off_pos][8]  = off_trait(inds, mum_row, 8, rg_mu);
             offs[off_pos][9]  = inds[mum_row][9];
             offs[off_pos][10] = inds[mum_row][10];
             offs[off_pos][11] = inds[mum_row][11];
@@ -384,7 +395,7 @@ void add_offspring(double **inds, int N, double **offs, int off_N, int traits,
             offs[off_pos][19] = 0.0;
             offs[off_pos][20] = 0.0;
             offs[off_pos][21] = 0.0;
-            offs[off_pos][22] = off_trait(inds, mum_row, dad_row, 22, N_mu);
+            offs[off_pos][22] = off_trait(inds, mum_row, 22, N_mu);
             if(offs[off_pos][1] == 0 || offs[off_pos][5] <= 0){
               offs[off_pos][23] = 0.0;
             }else{
@@ -395,6 +406,13 @@ void add_offspring(double **inds, int N, double **offs, int off_N, int traits,
             offs[off_pos][26] = 0.0;
             offs[off_pos][27] = 0.0;
             offs[off_pos][28] = 0.0 + gift_incr; 
+            offs[off_pos][29] = off_trait(inds, dad_row, 5, Tm_mu);
+            offs[off_pos][30] = off_trait(inds, dad_row, 8, rg_mu);
+            offs[off_pos][31] = off_trait(inds, dad_row, 22, N_mu);
+            /* Crossover the three traits */
+            crossover(inds, 5,  29, 0.5, off_pos);
+            crossover(inds, 6,  30, 0.5, off_pos);
+            crossover(inds, 22, 31, 0.5, off_pos);
             /* Prepare for next offspring */
             off_pos++;
             ID[0]++;
@@ -714,7 +732,7 @@ void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
 
     FILE *fptr, *fptr2;    
 
-    ind_traits = 29;
+    ind_traits = 32;
     
     if(stats == 1){
       pid = getpid();
