@@ -157,7 +157,7 @@ void move_inds(double **inds, int xdim, int ydim, int N){
 /******************************************************************************/
 void female_male_int(double **inds, int female, int male){
 
-    double rej_gift, acceptml, birth_par, offspring;
+    double rej_gift, birth_par, offspring;
 
     inds[female][21]++;
     inds[male][21]++;
@@ -379,7 +379,7 @@ void add_offspring(double **inds, int N, double **offs, int off_N, int traits,
               offs[off_pos][4]  = 0.0;
             }
             offs[off_pos][5]  = off_trait(inds, mum_row, 5, Tm_mu);
-            offs[off_pos][6]  = off_trait(inds, mum_row, 6, 0.0);
+            offs[off_pos][6]  = inds[mum_row][6];
             offs[off_pos][7]  = 0.0;
             offs[off_pos][8]  = off_trait(inds, mum_row, 8, rg_mu);
             offs[off_pos][9]  = inds[mum_row][9];
@@ -411,7 +411,7 @@ void add_offspring(double **inds, int N, double **offs, int off_N, int traits,
             offs[off_pos][31] = off_trait(inds, dad_row, 22, N_mu);
             /* Crossover the three traits */
             crossover(inds, 5,  29, 0.5, off_pos);
-            crossover(inds, 6,  30, 0.5, off_pos);
+            crossover(inds, 8,  30, 0.5, off_pos);
             crossover(inds, 22, 31, 0.5, off_pos);
             /* Prepare for next offspring */
             off_pos++;

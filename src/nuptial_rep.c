@@ -49,7 +49,7 @@ int main(void){
     /* Simulation details                                                     */
     /* =======================================================================*/
     rep    = 1;  /* Simulations run                                           */
-    stats  = 0;  /* 0: end of rep, 1: each time step, 2: all inds             */
+    stats  = 1;  /* 0: end of rep, 1: each time step, 2: all inds             */
     /* =======================================================================*/
     /*  XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX   */
     /* =======================================================================*/

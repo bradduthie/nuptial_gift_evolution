@@ -54,9 +54,9 @@ int randbinom(double pr){
     u = randunif();
 
     if(u < pr){
-      val = 0;    
+      val = 1;    
     }else{
-      val = 1;
+      val = 0;
     }
     
     return val;
