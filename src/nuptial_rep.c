@@ -25,7 +25,7 @@ int main(void){
     /* =======================================================================*/
     /* Model parameter values                                                 */
     /* =======================================================================*/
-    time_steps = 40000; /* Simulation time steps                              */
+    time_steps = 8000;  /* Simulation time steps                              */
     N          = 1000;  /* Population size                                    */
     Tm         = 0.0;   /* Initial male search time                           */
     Tf         = 2.0;   /* Initial female processing time                     */
@@ -48,8 +48,8 @@ int main(void){
     /* =======================================================================*/
     /* Simulation details                                                     */
     /* =======================================================================*/
-    rep    = 1;  /* Simulations run                                           */
-    stats  = 1;  /* 0: end of rep, 1: each time step, 2: all inds             */
+    rep    = 1000; /* Simulations run                                         */
+    stats  = 0;  /* 0: end of rep, 1: each time step, 2: all inds             */
     /* =======================================================================*/
     /*  XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX XXX   */
     /* =======================================================================*/

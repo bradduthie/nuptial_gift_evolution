@@ -30,27 +30,37 @@ void swap_arrays(void **ARRAY_A, void **ARRAY_B){
 /******************************************************************************/
 void male_search(double **inds, int male){
 
-  double time_out, pr_gift, rand_unif;
-  /* Tested -- gets geometric distribution equivalent of exponential */
-  if(inds[male][5] > 0 || inds[male][29] > 0){
-    pr_gift   = 1 - exp(-1 / inds[male][13]);
-    time_out  = 0.0;
-    rand_unif = randunif();
-    while(rand_unif > pr_gift){
-      time_out++;
-      rand_unif = randunif();
-    }
-    inds[male][7]  = 1;
-    inds[male][25] = 1;
-    
-    if(time_out > 0){
-      inds[male][4]  = 0.0;
-      inds[male][23] = time_out;
+  double time_out, pr_gift, rand_unif, lambda;
+  
+  time_out = 0.0;
+  pr_gift  = 0.0;
+  lambda   = inds[male][5] + inds[male][29];
+  if(inds[male][5] > 0){
+    time_out  = (double) randpois(lambda);
+    if(inds[male][13] <= 0){
+      pr_gift = 1.0;
     }else{
-      inds[male][4]  = 1.0;
-      inds[male][23] = 0.0;
+      pr_gift = 1 - exp(-1 * lambda / inds[male][13]);
     }
   }
+  
+  rand_unif = randunif();
+  
+  if(rand_unif < pr_gift){
+    inds[male][7]  = 1.0;
+    inds[male][25] = 1.0;
+  }else{
+    inds[male][7]  = 0.0;
+    inds[male][25] = 0.0;
+  }
+  
+  if(time_out > 0){
+    inds[male][4]  = 0.0;
+    inds[male][23] = time_out;
+  }else{
+    inds[male][4]  = 1.0;
+    inds[male][23] = 0.0;
+  }  
 }
 
 /******************************************************************************/
@@ -157,26 +167,27 @@ void move_inds(double **inds, int xdim, int ydim, int N){
 /******************************************************************************/
 void female_male_int(double **inds, int female, int male){
 
-    double rej_gift, birth_par, offspring;
-
-    inds[female][21]++;
-    inds[male][21]++;
-
-    rej_gift = inds[female][8] + inds[female][30];
-    if(rej_gift < 1 || inds[male][7] > 0){
-      if(inds[male][7] > 0){
-        inds[female][20]  = 1.0;
-      }else{
-        inds[female][20]  = 0.0;
-      }
-      birth_par         =  inds[female][17] + inds[female][28]; 
-      offspring         =  (double) randpois(birth_par);
-      inds[female][14] +=  offspring; 
-      inds[male][7]     =  0.0;
-      inds[female][19]  =  inds[male][0];
-      male_search(inds, male);
-      female_process(inds, female);
+  double rej_gift, acceptml, birth_par, offspring;
+  
+  inds[female][21]++;
+  inds[male][21]++;
+  
+  rej_gift = inds[female][8] + inds[female][30];
+  acceptml = randunif();
+  if(rej_gift < acceptml || inds[male][7] > 0){
+    if(inds[male][7] > 0){
+      inds[female][20]  = 1.0;
+    }else{
+      inds[female][20]  = 0.0;
     }
+    birth_par         =  inds[female][17] + inds[female][28]; 
+    offspring         =  (double) randpois(birth_par);
+    inds[female][14] +=  offspring; 
+    inds[male][7]     =  0.0;
+    inds[female][19]  =  inds[male][0];
+    male_search(inds, male);
+    female_process(inds, female);
+  }
 }
 
 
@@ -321,16 +332,18 @@ int find_dad(double **inds, int N, double dad_ID){
 /******************************************************************************/
 double off_trait(double **inds, int parent_row, int trait_col, double mu){
     
-    int mutates, par_val, off_val;
+  int mutates;
+  double par_val, off_val, mu_val;
   
-    par_val = (int) inds[parent_row][trait_col];
-    off_val = par_val;
-    mutates = randbinom(mu);
-    if(mutates > 0){
-      off_val = (1 - par_val) * (1 - par_val);
-    }
-    
-    return off_val;
+  par_val = inds[parent_row][trait_col];
+  off_val = par_val;
+  mutates = randbinom(mu);
+  if(mutates > 0){
+    mu_val   = randnorm(0, 0.1);
+    off_val += mu_val;
+  }
+  
+  return off_val;
 }
 
 
@@ -568,11 +581,11 @@ void sumstats(double **inds, int N, int ind_traits, int stats, int ts,
                   M_tot     += inds[row][21];
                   time_in++;
               }
-              Tm        += inds[row][5];
+              Tm        += 0.5 * (inds[row][5] + inds[row][29]);
               Tf        += inds[row][6];
               Gift      += inds[row][20];
-              RejPr     += inds[row][8];
-              N_tot     += inds[row][22];
+              RejPr     += 0.5 * (inds[row][8] + inds[row][30]);
+              N_tot     += 0.5 * (inds[row][31] + inds[row][22]);
               count++;
               if(inds[row][1] == 0){
                   fcount++;
@@ -646,11 +659,11 @@ void sumstats(double **inds, int N, int ind_traits, int stats, int ts,
                 M_tot     += inds[row][21];
                 time_in++;
             }
-            Tm        += inds[row][5];
+            Tm        += 0.5 * (inds[row][5] + inds[row][29]);
             Tf        += inds[row][6];
             Gift      += inds[row][20];
-            RejPr     += inds[row][8];
-            N_tot     += inds[row][22];
+            RejPr     += 0.5 * (inds[row][8] + inds[row][30]);
+            N_tot     += 0.5 * (inds[row][31] + inds[row][22]);
             count++;
             if(inds[row][1] == 0){
                 fcount++;
@@ -726,11 +739,11 @@ void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
               double lambd, int xdim, int ydim, int K, int stats, 
               double Tm_mu, double rg_mu, double N_mu, double Nexp){
 
-    int ts, row, ind_traits, off_N, new_N, *ID, pid, i, j;
+    int ts, row, ind_traits, off_N, new_N, *ID, pid;
     double **inds, **offs, **news;
-    char outfile[20], checkfile[20];
+    char outfile[20];
 
-    FILE *fptr, *fptr2;    
+    FILE *fptr;    
 
     ind_traits = 32;
     
@@ -765,20 +778,6 @@ void nuptials(int time_steps, int N, double Tm, double Tf, double rejg,
         mortality(inds, N);
 
         off_N = count_offspring(inds, N);
-
-        for(i = 0; i < N; i++){
-          if(ts> 399900){
-            sprintf(checkfile, "check_inds.csv");
-            fptr2 = fopen(checkfile, "a+");
-            for(j = 0; j < 29; j++){
-              fprintf(fptr2, "%f\t", inds[i][j]);
-            }
-            printf("%f\t%f\t%f\n", inds[i][0], inds[i][1], inds[i][28]);
-            fprintf(fptr2, "\n");
-            fclose(fptr2);
-          }
-        }
-        printf("%d\n", ts);
         
         sumstats(inds, N, ind_traits, stats, ts, off_N, time_steps, mim, mom,
                  gam, mov, a1, lambd, xdim, ydim, K, Tm, rejg, Tm_mu, rg_mu,

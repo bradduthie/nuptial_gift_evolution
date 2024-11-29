@@ -42,12 +42,12 @@ IBM_output_to_summary <- function(res_file, out = "summary.csv"){
     gam_val <- res[i, 2];
     temp_r  <- which(dat$a1 == a1_val & dat$gam == gam_val);
     mean_Tm <- mean(dat[temp_r,]$Tm);
-    CIs_Tm  <- simpleboot(freqs = dat[temp_r,]$Tm);
+    CIs_Tm  <- simpleboot(freqs = dat[temp_r,]$Tm, alpha = 0.2);
     mean_Rj <- mean(dat[temp_r,]$RejPr);
-    CIs_Rj  <- simpleboot(freqs = dat[temp_r,]$RejPr);
+    CIs_Rj  <- simpleboot(freqs = dat[temp_r,]$RejPr, alpha = 0.2);
     mean_Gf <- mean(dat[temp_r,]$Gift);
     mean_Nu <- mean(dat[temp_r,]$N_m);
-    CIs_Nu  <- simpleboot(freqs = dat[temp_r,]$N_m);
+    CIs_Nu  <- simpleboot(freqs = dat[temp_r,]$N_m, alpha = 0.2);
     mean_M  <- mean(dat[temp_r,]$M_m);
     mean_B  <- mean(dat[temp_r,]$Beta);
     mean_Mm <- mean(dat[temp_r,]$M_males);
@@ -72,11 +72,62 @@ IBM_output_to_summary <- function(res_file, out = "summary.csv"){
 
 
 
+IBM_output_to_summary_mort <- function(res_file, out = "summary.csv"){
+  dat  <- read.csv(file = res_file);
+  # Remove any titles if CSVs are concatenated
+  mims <- which(dat[,1] == "mim");
+  dat  <- dat[-mims,];
+  cols <- dim(dat)[2];
+  for(i in 1:cols){
+    dat[,i] <- as.numeric(dat[,i]);
+  }
+  
+  # Pull out summary statistics
+  res  <- unique(cbind(dat$mim, dat$mom, dat$a1, dat$gam));
+  SUMM <- NULL;
+  for(i in 1:dim(res)[1]){
+    mim_val <- res[i, 1];
+    mom_val <- res[i, 2];
+    a1_val  <- res[i, 3];
+    gam_val <- res[i, 4];
+    temp_r  <- which(dat$mim == mim_val & dat$mom == mom_val & 
+                       dat$a1 == a1_val & dat$gam == gam_val);
+    mean_Tm <- mean(dat[temp_r,]$Tm);
+    CIs_Tm  <- simpleboot(freqs = dat[temp_r,]$Tm, alpha = 0.2);
+    mean_Rj <- mean(dat[temp_r,]$RejPr);
+    CIs_Rj  <- simpleboot(freqs = dat[temp_r,]$RejPr, alpha = 0.2);
+    mean_Gf <- mean(dat[temp_r,]$Gift);
+    mean_Nu <- mean(dat[temp_r,]$N_m);
+    CIs_Nu  <- simpleboot(freqs = dat[temp_r,]$N_m, alpha = 0.2);
+    mean_M  <- mean(dat[temp_r,]$M_m);
+    mean_B  <- mean(dat[temp_r,]$Beta);
+    mean_Mm <- mean(dat[temp_r,]$M_males);
+    mean_Fm <- mean(dat[temp_r,]$M_females);
+    mean_MG <- mean(dat[temp_r,]$F_Mnupt_enc);
+    mean_MN <- mean(dat[temp_r,]$F_Mnonupt_enc);
+    reps    <- length(temp_r);
+    new_row <- c(mim_val, mom_val, a1_val, gam_val, mean_Tm, CIs_Tm, mean_Rj, 
+                 CIs_Rj, mean_Gf, mean_Nu, CIs_Nu, mean_M, mean_B, mean_Mm, 
+                 mean_Fm, mean_MG, mean_MN, reps);
+    SUMM    <- rbind(SUMM, new_row);
+    print(i);
+  }
+  
+  colnames(SUMM) <- c("mim_val", "mom_val", "a1_val", "gam_val", "mean_TM", 
+                      "LCI_Tm", "UCI_Tm",
+                      "mean_Rj", "LCI_Rj", "UCI_Rj", "Gift", "Neutral",
+                      "LCI_Neutral", "UCI_Neutral", "M", "Beta", "M_m", "F_m",
+                      "Mf_nupt", "Mf_no_nput", "Replicates");
+  
+  write.csv(x = SUMM, file = out, row.names = FALSE);
+}
+
+
 plot_SI_mortality <- function(SUMM, outfile = "mortality_sensitivity.eps"){
   alpha_vals   <- sort(unique(SUMM[,3]));
   mort_combn   <- paste(SUMM[,1], SUMM[,2]);
   mort_label   <- unique(paste(SUMM[,1], ", ", SUMM[,2], sep = ""));
-  TM_vals      <- tapply(X = SUMM[,4],  INDEX = mort_combn, FUN = mean);
+  TM_vals      <- tapply(X = SUMM[,5],  INDEX = mort_combn, FUN = mean);
   m_vals       <- tapply(X = SUMM[,14], INDEX = mort_combn, FUN = mean);
   beta_vals    <- tapply(X = SUMM[,15], INDEX = mort_combn, FUN = mean);
   Male_M       <- tapply(X = SUMM[,16], INDEX = mort_combn, FUN = mean);
@@ -91,14 +142,14 @@ plot_SI_mortality <- function(SUMM, outfile = "mortality_sensitivity.eps"){
   mp <- NULL;
   for(i in 1:dim(mm)[1]){
     rval <- which(mm[i, 1] == mimmom[,1] & mm[i, 2] == mimmom[,2]);
-    mp   <- rbind(mp, c(rval, mm[i, 3]));
+    mp   <- rbind(mp, c(rval, mm[i, 4]));
   }
 
   ff <- SUMM[fem_choose,]
   fp <- NULL;
   for(i in 1:dim(ff)[1]){
     rval <- which(ff[i, 1] == mimmom[,1] & ff[i, 2] == mimmom[,2]);
-    fp   <- rbind(fp, c(rval, ff[i, 3]));
+    fp   <- rbind(fp, c(rval, ff[i, 4]));
   }
   
   setEPS();
