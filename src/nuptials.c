@@ -35,7 +35,7 @@ void male_search(double **inds, int male){
   time_out = 0.0;
   pr_gift  = 0.0;
   lambda   = inds[male][5] + inds[male][29];
-  if(inds[male][5] > 0){
+  if(lambda > 0){
     time_out  = (double) randpois(lambda);
     if(inds[male][13] <= 0){
       pr_gift = 1.0;
