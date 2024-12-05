@@ -1,19 +1,19 @@
 ---
 title: "A general model for the evolution of nuptial gift-giving"
 author: |
-  | Anders P. Charmouh$^{1,4, 5}$, Trine Bilde$^{2}$, Greta Bocedi$^{1}$, A. Bradley Duthie$^{3}$
-date: '[1] School of Biological Sciences, University of Aberdeen, UK. [2] Department of Biology, Aarhus University, Denmark. [3] Biological and Environmental Sciences, University of Stirling, UK.  [4] Bioinformatics Research Centre Aarhus University, University City 81, building 1872, 3rd floor, DK-8000 Aarhus C, Denmark [5] Email: apc@birc.au.dk'
+  | Author list (anonymised)
+date: '[1] Author institutions and email'
 output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution-letters.csl
     reference_docx: docx_template.docx
-  html_document: default
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
 bibliography: nuptial_refs.bib
 header-includes:
 - \usepackage{amsmath}
@@ -244,12 +244,11 @@ Our model demonstrates the importance of nuptial gift cost, sex ratio, and mate 
 Importantly, we show that the threshold value differs for male searching and female choosiness. 
 We complement the predictions of our analytical model by formulating an individual-based model, which further supports the main theoretical results. 
 We apply our model to an example system with nuptial gifts, the nursery web spider *Pisaura mirabilis*, where we use experimental data to estimate a key model parameter. 
-Our results provide a general framework for understanding why nuptial gift-giving evolves in some systems and not in others, how the evolution of nuptial gift-giving can give rise to sexual conflict, and it provides insight into the evolution of worthless and deceitful nuptial gifts, which occur in several different taxonomic [@Ghislandi2014; @LeBas2005].
+Our results provide a general framework for understanding why nuptial gift-giving evolves in some systems and not in others, how the evolution of nuptial gift-giving can give rise to sexual conflict, and it provides insight into the evolution of worthless and deceitful nuptial gifts, which occur in several different taxonomic groups [@Ghislandi2014; @LeBas2005].
 
 
 Model
 ================================================================================
-
 
 We use a time-in and time-out model [@Clutton-Brock1992; @Kokko2001; @Kokko2006] in which choosy (female) and non-choosy (male) individuals spend some period of time within the mating pool searching for a mate (time-in) followed by a period outside the mating pool (time-out).
 During time-out, females spend some duration of time ($T_{\mathrm{f}}$) gestating or rearing (hereafter 'processing') offspring. 
@@ -454,7 +453,7 @@ Summary statistics for mean trait values, population size, sex ratios, proportio
 The C code used for simulating these IBMs also allows for the reporting of summary statistics in each time step. 
 Additionally, it can simulate explicit space and individual movement through the landscape. 
 A neutral evolving trait was also modelled to ensure that the code functioned as intended, and processes were compartmentalised into individual functions to facilitate code testing. 
-All code is publicly available on GitHub (https://github.com/bradduthie/nuptial_gift_evolution).
+All code is publicly available on GitHub (https://github.com/AUTHOR_NAME/REPOSITORY_NAME).
 
 <!---
 
@@ -649,7 +648,7 @@ Threshold fitness values
 We show that the threshold nuptial gift value at which females are favoured to express choosiness for nuptial gifts is rarely equivalent to the threshold value at which males are favoured to search for nuptial gifts, potentially leading to sexual conflict [@Oliveira2008; @Arnqvist2005a]. 
 Here, we are defining sexual conflict as occurring when interactions between sexes result in situation where both sexes cannot achieve an optimal outcome simultaneously [@Parker2006].
 As an example, sizable areas of parameter space exists wherein the female optimum would be to exhibit preference for (and receive) nuptial gifts, while the male optimum is to not search for (and give) nuptial gifts (see Figure 2a, Zone C).
-This will lead to mate encounters in which gift-less males will benefit from mating, but females will not (i.e., evolutionary interests do not always overlap with respect to mating strategy between the sexes).
+This will lead to encounter where giftless males would benefit the most from mating, but female would benefit most from mating and receiving a gift (i.e., evolutionary interests do not always overlap with respect to mating strategy between the sexes).
 In many systems, ecological variables such as search time required to find a nuptial gift will likely depend on prey abundance,  which can vary substantially with time in some species with nuptial gift-giving [@Ghislandi2018]. 
 Since several ecological variables likely affect the value of these thresholds, our results can be seen as providing some formalised description of why nuptial gift-giving only occurs in some but not all systems.
 
@@ -742,11 +741,11 @@ They can also provide novel insight into how populations can evolve to use worth
 
 
 
-**Author contributions:** APC and ABD conceived the study. ABD constructed the modelling framework with input from APC. APC wrote the paper with input from ABD and ABD wrote the IBM model. TB and GB provided substantial comments on previous drafts and final text.
+**Author contributions:** Redacted for anonymous peer review.
 
-**Acknowledgements:** Anders P. Charmouh was supported by the University of Aberdeen. A. Bradley Duthie was supported by the University of Stirling. Trine Bilde was supported by The Danish Council for Independent Research grant number 4002-00328B. We thank Maria Albo for making available data from a previous study which was useful for parameter estimating.
+**Acknowledgements:** Redacted for anonymous peer review.
 
-**Data availability:** The simulation software was implemented in C and the full source code is available at https://github.com/bradduthie/nuptial_gift_evolution. 
+**Data availability:** The simulation software was implemented in C and the full source code is available at https://github.com/AUTHOR_NAME/REPOSITORY_NAME. 
 
 **Competing interests:** The authors declare no competing interests.
 

@@ -1,19 +1,19 @@
 ---
 title: "A general model for the evolution of nuptial gift-giving: Supporting Information"
 author: |
-  | Anders P. Charmouh$^{1,4, 5}$, Trine Bilde$^{2}$, Greta Bocedi$^{1}$, A. Bradley Duthie$^{3}$
-date: '[1] School of Biological Sciences, University of Aberdeen, UK. [2] Department of Biology, Aarhus University, Denmark. [3] Biological and Environmental Sciences, University of Stirling, UK.  [4] Bioinformatics Research Centre Aarhus University, University City 81, building 1872, 3rd floor, DK-8000 Aarhus C, Denmark [5] Email: apc@birc.au.dk'
+  | Author list (anonymised)
+date: '[1] Author institutions and email'
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution-letters.csl
     reference_docx: docx_template.docx
+  html_document: default
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
 bibliography: nuptial_refs.bib
 header-includes:
 - \usepackage{amsmath}
@@ -327,7 +327,7 @@ Evidence for the evolution of male search (blue points in figures) and female ch
 This required a lot of replicate simulations in the main text (Figure 3), especially for values just above predicted thresholds and for female choosiness.
 Computation time was a limiting factor, even using a compiled language (C) and with access to a computing cluster.
 Absence of points above threshold values are not necessarily evidence that evolution of male search or female choosiness is not predicted to evolve in these regions of parameter space, but it does indicate that evolution of these traits is not necessarily assured given the stochasticity inherent to the IBM.
-Additional simulations can be conducted using the C code in the 'src' folder of the GitHub repository (https://github.com/bradduthie/nuptial_gift_evolution).
+Additional simulations can be conducted using the C code in the 'src' folder of the GitHub repository (https://github.com/AUTHOR_NAME/REPOSITORY_NAME).
 Below, we explain the parameter values used in the sensitivity analysis in more detail.
 
 

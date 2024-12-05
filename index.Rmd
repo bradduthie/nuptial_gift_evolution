@@ -242,7 +242,7 @@ Our model demonstrates the importance of nuptial gift cost, sex ratio, and mate 
 Importantly, we show that the threshold value differs for male searching and female choosiness. 
 We complement the predictions of our analytical model by formulating an individual-based model, which further supports the main theoretical results. 
 We apply our model to an example system with nuptial gifts, the nursery web spider *Pisaura mirabilis*, where we use experimental data to estimate a key model parameter. 
-Our results provide a general framework for understanding why nuptial gift-giving evolves in some systems and not in others, how the evolution of nuptial gift-giving can give rise to sexual conflict, and it provides insight into the evolution of worthless and deceitful nuptial gifts, which occur in several different taxonomic [@Ghislandi2014; @LeBas2005].
+Our results provide a general framework for understanding why nuptial gift-giving evolves in some systems and not in others, how the evolution of nuptial gift-giving can give rise to sexual conflict, and it provides insight into the evolution of worthless and deceitful nuptial gifts, which occur in several different taxonomic groups [@Ghislandi2014; @LeBas2005].
 
 
 Model
@@ -644,7 +644,7 @@ Threshold fitness values
 We show that the threshold nuptial gift value at which females are favoured to express choosiness for nuptial gifts is rarely equivalent to the threshold value at which males are favoured to search for nuptial gifts, potentially leading to sexual conflict [@Oliveira2008; @Arnqvist2005a]. 
 Here, we are defining sexual conflict as occurring when interactions between sexes result in situation where both sexes cannot achieve an optimal outcome simultaneously [@Parker2006].
 As an example, sizable areas of parameter space exists wherein the female optimum would be to exhibit preference for (and receive) nuptial gifts, while the male optimum is to not search for (and give) nuptial gifts (see Figure 2a, Zone C).
-This will lead to mate encounters in which gift-less males will benefit from mating, but females will not (i.e., evolutionary interests do not always overlap with respect to mating strategy between the sexes).
+This will lead to encounter where giftless males would benefit the most from mating, but female would benefit most from mating and receiving a gift (i.e., evolutionary interests do not always overlap with respect to mating strategy between the sexes).
 In many systems, ecological variables such as search time required to find a nuptial gift will likely depend on prey abundance,  which can vary substantially with time in some species with nuptial gift-giving [@Ghislandi2018]. 
 Since several ecological variables likely affect the value of these thresholds, our results can be seen as providing some formalised description of why nuptial gift-giving only occurs in some but not all systems.
 
