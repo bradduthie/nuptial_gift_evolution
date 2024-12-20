@@ -206,119 +206,19 @@ Table of Contents
 
 | Information                                                   | Page |
 |---------------------------------------------------------------|------|
-| S1: Alternative derivation of male fitness threshold          |  2   |
-| S2: Operational sex ratio                                     |  4   |
-| S3: Sensitivity analysis of parameters in IBM                 |  5   |
+| S1: Sensitivity analysis of parameters in IBM                 |  2   |
+| S2: Alternative derivation of male fitness threshold          |  9   |
+| S3: Operational sex ratio                                     |  11  |
 | S4: Separate evolution of male search and female choice       |  12  |
-| References                                                    |  13  |
-
-\clearpage
-
-
-S1: Alternative derivation of male fitness threshold
-------------------------------------
-
-In the main text, we assumed that males made the decision to search or not search for a nuptial gift.
-The expected length of time for which searching males are expected to remain outside of the mating pool is $E[T_{\mathrm{m}}] = \alpha$ (see Model).
-Alternatively, we can assume that males search for a period of $T_{\mathrm{m}}$ and spend this full duration of $T_{\mathrm{m}}$ in the time-out phase, even if they succeed in finding a nuptial gift (as we assumed in our IBM).
-The probability that a male obtains a nuptial gift during this time is modelled in Eq. 1, 
-
-$$P(G) = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
-
-In Eq. 1, $\alpha$ is the amount of time expected to pass before a male encounters a nuptial gift. 
-We assume that a male will only enter the mating pool with no gift if they are unsuccessful in obtaining a gift, so the probability that a male obtains no gift after $T_{\mathrm{m}}$ is,
-
-$$P(L) = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
-
-We assume that the fitness increment in reproductive success associated with receiving a nuptial gift versus no nuptial gift are $\lambda(1 + \gamma)$ and $\lambda$, respectively. 
-The rate at which males increase their fitness can then be defined as the expected fitness increment from their nuptial gift search divided by $T_{\mathrm{m}}$ plus the time spent in the mating pool waiting to encounter a mate, 
-
-$$W_{\mathrm{m}} = \lambda \frac{P(G)\left(1 + \gamma\right) + P(L)}{T_{\mathrm{m}} + \left( \frac{\beta + 1}{R} \right)}.$$
-
-Our objective now is to determine the conditions under which a focal male increases his fitness by searching for a nuptial gift ($T_{\mathrm{m}}>0$) in a population of resident males that do not search ($T_{\mathrm{m}}=0$). 
-Females are assumed to exhibit no choosiness for males with versus without nuptial gifts. Under such conditions, male fitness cannot be affected by female choice, so selection to increase $T_{\mathrm{m}}>0$ must be based solely on $\alpha$, $\beta$, $R$, and $\gamma$.
-
-To determine under what conditions male inclusive fitness increases with nuptial gift search time, we can differentiate $W_{\mathrm{m}}$ with respect to $T_{\mathrm{m}}$,
+| S5: Male probability of search trait                          |  13  |
+| Reference                                                     |  15  |
 
 
-$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda\frac{\gamma\left(\frac{\frac{T_{\mathrm{m}} + \frac{\beta + 1}{R}}{\alpha} + 1}{e^{\frac{1}{\alpha}T_{\mathrm{m}}}} - 1\right) - 1}{\left(T_{\mathrm{m}} + \frac{\beta + 1}{R} \right)^{2}}.$$
-
-Because $T_{\mathrm{m}} = 0$, the above simplifies,
-
-$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda \frac{\frac{R\gamma\left(\beta + 1\right)}{\alpha} - R^{2}}{\left(1 + \beta \right)^{2}}.$$
-
-We can re-arrange the above,
-
-$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)} - \lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}}.$$
-
-
-Note that if $R = 0$ or $\lambda = 0$, then, trivially, no change in fitness occurs (since females and males cannot mate or do not produce offspring). 
-Fitness is increased by searching for nuptial gifts when $\gamma$ is high, scaled by the expect search time needed to find a nuptial gift. 
-A second term on the right-hand side is subtracted, which reflects a loss in fitness proportional to the encounter rate of potential mates in the mating pool.
-The conditions under which male inclusive fitness increases by searching for a nuptial gift are found by setting $\partial W_{\mathrm{m}}/\partial T_{\mathrm{m}} = 0$ and solving for $\gamma$ to recover Eq. 2 from the main text,
-
-
-$$0 = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)} - \lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}},$$
-
-$$\lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}} = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)},$$
-
-$$\frac{R}{{\left(1 + \beta \right)^{2}}} =  \frac{\gamma}{\alpha\left(\beta+1\right)},$$
-
-$$\frac{R}{{\left(1 + \beta \right)}} =  \frac{\gamma}{\alpha},$$
-
-$$\gamma = \alpha \frac{R }{\beta + 1}.$$
 
 
 \clearpage
 
-
-S2: Operational sex ratio
-------------------------------------
-
-We assume that the ratio of males to females is the same upon individual maturation.
-Consequently, the operational sex ratio $\beta$ will be a function of $R$, $T_{\mathrm{f}}$, and $T_{\mathrm{m}}$ because these parameters determine the density of females and males in the mating pool versus outside of the mating pool.
-We start with the definition of $\beta$ as being the probability of finding an individual in time-in [@Kokko2001],
-
-$$\beta = \frac{\int_{t=0}^{\infty}P_{IM}(t)dt}{\int_{t=0}^{\infty}P_{IF}(t)dt}$$
-
-We can substitute the equations for $P_{IM}(t)$ and $P_{IF}(t)$, which define the probabilities of males and females being within the mating pool at time $t$, respectively.
-
-We can therefore calculate $\beta$ as below,
-
-$$\beta = \frac{\left( \frac{\left(\frac{\beta + 1}{R}\right)}{T_{\mathrm{m}} + \left(\frac{\beta + 1}{R}\right)} \right)}{\left( \frac{\left(R \frac{\beta}{\beta + 1}\right)}{T_{\mathrm{f}} + \left(R \frac{\beta}{\beta + 1}\right)} \right)}.$$
-
-This can be simplified,
-
-$$\beta = \frac{\left(\beta\left(R + T_{f}\right) + T_{f}\right)\left(\beta + 1\right)}{\beta \left(R^{2}T_{m} + R\right) + \beta^{2}R}.$$
-
-There is no closed form solution for $\beta$, but a recursive algorithm can be used to calculate $\beta$ to an arbitrary degree of precision.
-
-```{r}
-recursive_b <- function(B, D, Tf, Tm, crit = 0.0001, maxit = 9999){
-  conv <- 1;
-  iter <- 0;
-  while(conv > crit & iter < maxit){
-    Fe   <- D * (B / (1 + B));
-    Me   <- (1 + B) / D;
-    Bn   <- (Me / (Tm + Me)) / (Fe / (Tf + Fe));
-    iter <- iter + 1;
-    conv <- abs(Bn - B);
-    B    <- Bn;
-  }
-  return(list(B = B, conv = conv, iter = iter));
-}
-```
-
-We used the above function to calculate values of $\beta$ for the analytical model. 
-
-
-\clearpage
-
-
-
-
-
-S3: Sensitivity analysis of parameters in IBM
+S1: Sensitivity analysis of parameters in IBM
 ------------------------------------
 
 We investigated the sensitivity of our results to individual mortality during time-in ($\mu_{\mathrm{in}}$) and time-out ($\mu_{\mathrm{out}}$), female processing time ($T_{\mathrm{f}}$), and the potential for interactions between conspecifics ($\psi$).
@@ -428,9 +328,6 @@ plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
                              ")")),
      ylim = c(0, 2.0));
 
-#points(x = alpha_vals, y = g_m, type = "l", lwd = 2, col = "blue");
-#points(x = alpha_vals, y = g_f, type = "l", lwd = 2, col = "red", 
-#       lty = "dashed");
 
 for(i in 1:dim(SUMM_Tf10)[1]){
   if(SUMM_Tf10[i, 4] > 0 & SUMM_Tf10[i, 5] > 0){
@@ -478,9 +375,6 @@ plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
                              ")")),
      ylim = c(0, 2.0));
 
-# points(x = alpha_vals, y = g_m, type = "l", lwd = 2, col = "blue");
-# points(x = alpha_vals, y = g_f, type = "l", lwd = 2, col = "red", 
-#        lty = "dashed");
 
 for(i in 1:dim(SUMM_Nexp1)[1]){
   if(SUMM_Nexp1[i, 4] > 0 & SUMM_Nexp1[i, 5] > 0){
@@ -526,9 +420,6 @@ plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
                              ")")),
      ylim = c(0, 2.0));
 
-# points(x = alpha_vals, y = g_m, type = "l", lwd = 2, col = "blue");
-# points(x = alpha_vals, y = g_f, type = "l", lwd = 2, col = "red", 
-#        lty = "dashed");
 
 for(i in 1:dim(SUMM_Nexp2)[1]){
   if(SUMM_Nexp2[i, 4] > 0 & SUMM_Nexp2[i, 5] > 0){
@@ -576,10 +467,6 @@ plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
                              ")")),
      ylim = c(0, 2.0));
 
-# points(x = alpha_vals, y = g_m, type = "l", lwd = 2, col = "blue");
-# points(x = alpha_vals, y = g_f, type = "l", lwd = 2, col = "red", 
-#        lty = "dashed");
-
 for(i in 1:dim(SUMM_Nexp4)[1]){
   if(SUMM_Nexp4[i, 4] > 0 & SUMM_Nexp4[i, 5] > 0){
     points(x = SUMM_Nexp4[i, 1], y = SUMM_Nexp4[i, 2], cex = 3, pch = 20, 
@@ -626,9 +513,6 @@ plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
                              ")")),
      ylim = c(0, 2.0));
 
-# points(x = alpha_vals, y = g_m, type = "l", lwd = 2, col = "blue");
-# points(x = alpha_vals, y = g_f, type = "l", lwd = 2, col = "red", 
-#        lty = "dashed");
 
 for(i in 1:dim(SUMM_Nexp6)[1]){
   if(SUMM_Nexp6[i, 4] > 0 & SUMM_Nexp6[i, 5] > 0){
@@ -650,6 +534,112 @@ for(i in 1:dim(SUMM_Nexp6)[1]){
 
 
 \clearpage
+
+
+
+S2: Alternative derivation of male fitness threshold
+------------------------------------
+
+In the main text, we assumed that males made the decision to search or not search for a nuptial gift.
+The expected length of time for which searching males are expected to remain outside of the mating pool is $E[T_{\mathrm{m}}] = \alpha$ (see Model).
+Alternatively, we can assume that males search for a pre-determined period of $T_{\mathrm{m}}$ and spend this full duration of $T_{\mathrm{m}}$ in the time-out phase, even if they succeed in finding a nuptial gift (as we assumed in our IBM).
+The probability that a male obtains a nuptial gift during this time is modelled in Eq. 1, 
+
+$$G = 1 - e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+
+In Eq. 1, $\alpha$ is the amount of time expected to pass before a male encounters a nuptial gift. 
+We assume that a male will only enter the mating pool with no gift if they are unsuccessful in obtaining a gift, so the probability that a male obtains no gift after $T_{\mathrm{m}}$ is,
+
+$$L = e^{-\frac{1}{\alpha}T_{\mathrm{m}}}.$$
+
+We assume that the fitness associated with receiving a nuptial gift versus no nuptial gift are $\lambda(1 + \gamma)$ and $\lambda$, respectively. 
+The rate at which males increase their fitness can then be defined as the expected fitness increase from their nuptial gift search divided by $T_{\mathrm{m}}$ plus the time spent in the mating pool waiting to encounter a mate, 
+
+$$W_{\mathrm{m}} = \lambda \frac{G\left(1 + \gamma\right) + L}{T_{\mathrm{m}} + \left( \frac{\beta + 1}{R} \right)}.$$
+
+Our objective now is to determine the conditions under which a focal male increases his fitness by searching for a nuptial gift ($T_{\mathrm{m}}>0$) in a population of resident males that do not search ($T_{\mathrm{m}}=0$). 
+Females are assumed to exhibit no choosiness for males with versus without nuptial gifts. Under such conditions, male fitness cannot be affected by female choice, so selection to increase $T_{\mathrm{m}}>0$ must be based solely on $\alpha$, $\beta$, $R$, and $\gamma$.
+
+To determine under what conditions male inclusive fitness increases with nuptial gift search time, we can differentiate $W_{\mathrm{m}}$ with respect to $T_{\mathrm{m}}$,
+
+
+$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda\frac{\gamma\left(\frac{\frac{T_{\mathrm{m}} + \frac{\beta + 1}{R}}{\alpha} + 1}{e^{\frac{1}{\alpha}T_{\mathrm{m}}}} - 1\right) - 1}{\left(T_{\mathrm{m}} + \frac{\beta + 1}{R} \right)^{2}}.$$
+
+Because $T_{\mathrm{m}} = 0$, the above simplifies,
+
+$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda \frac{\frac{R\gamma\left(\beta + 1\right)}{\alpha} - R^{2}}{\left(1 + \beta \right)^{2}}.$$
+
+We can re-arrange the above,
+
+$$\frac{\partial W_{\mathrm{m}}}{\partial T_{\mathrm{m}}} = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)} - \lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}}.$$
+
+
+Note that if $R = 0$ or $\lambda = 0$, then, trivially, no change in fitness occurs (since females and males cannot mate or do not produce offspring). 
+Fitness is increased by searching for nuptial gifts when $\gamma$ is high, scaled by the expect search time needed to find a nuptial gift. 
+A second term on the right-hand side is subtracted, which reflects a loss in fitness proportional to the encounter rate of potential mates in the mating pool.
+The threshold for which male inclusive fitness is not affected by searching for a nuptial gift are found by setting $\partial W_{\mathrm{m}}/\partial T_{\mathrm{m}} = 0$ and solving for $\gamma$ to recover Eq. 2 from the main text,
+
+
+$$0 = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)} - \lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}},$$
+
+$$\lambda\frac{R^{2}}{{\left(1 + \beta \right)^{2}}} = \lambda \frac{R\gamma}{\alpha\left(\beta+1\right)},$$
+
+$$\frac{R}{{\left(1 + \beta \right)^{2}}} =  \frac{\gamma}{\alpha\left(\beta+1\right)},$$
+
+$$\frac{R}{{\left(1 + \beta \right)}} =  \frac{\gamma}{\alpha},$$
+
+$$\gamma = \alpha \frac{R }{\beta + 1}.$$
+
+
+\clearpage
+
+
+S3: Operational sex ratio
+------------------------------------
+
+We assume that the ratio of males to females is the same upon individual maturation.
+Consequently, the operational sex ratio $\beta$ will be a function of $R$, $T_{\mathrm{f}}$, and $T_{\mathrm{m}}$ because these parameters determine the density of females and males in the mating pool versus outside of the mating pool.
+We start with the definition of $\beta$ as being the probability of finding an individual in time-in [@Kokko2001],
+
+$$\beta = \frac{\int_{t=0}^{\infty}P_{IM}(t)dt}{\int_{t=0}^{\infty}P_{IF}(t)dt}$$
+
+We can substitute the equations for $P_{IM}(t)$ and $P_{IF}(t)$, which define the probabilities of males and females being within the mating pool at time $t$, respectively.
+
+We can therefore calculate $\beta$ as below,
+
+$$\beta = \frac{\left( \frac{\left(\frac{\beta + 1}{R}\right)}{T_{\mathrm{m}} + \left(\frac{\beta + 1}{R}\right)} \right)}{\left( \frac{\left(R \frac{\beta}{\beta + 1}\right)}{T_{\mathrm{f}} + \left(R \frac{\beta}{\beta + 1}\right)} \right)}.$$
+
+This can be simplified,
+
+$$\beta = \frac{\left(\beta\left(R + T_{f}\right) + T_{f}\right)\left(\beta + 1\right)}{\beta \left(R^{2}T_{m} + R\right) + \beta^{2}R}.$$
+
+There is no closed form solution for $\beta$, but a recursive algorithm can be used to calculate $\beta$ to an arbitrary degree of precision.
+
+```{r}
+recursive_b <- function(B, D, Tf, Tm, crit = 0.0001, maxit = 9999){
+  conv <- 1;
+  iter <- 0;
+  while(conv > crit & iter < maxit){
+    Fe   <- D * (B / (1 + B));
+    Me   <- (1 + B) / D;
+    Bn   <- (Me / (Tm + Me)) / (Fe / (Tf + Fe));
+    iter <- iter + 1;
+    conv <- abs(Bn - B);
+    B    <- Bn;
+  }
+  return(list(B = B, conv = conv, iter = iter));
+}
+```
+
+We used the above function to calculate values of $\beta$ for the analytical model. 
+
+
+\clearpage
+
+
+
+
+
 
 
 
@@ -724,7 +714,70 @@ for(i in 1:dim(SUMM_m)[1]){
 \clearpage
 
 
-References
+S5: Male probability of search trait
+-------------------------------------
+
+In the individual-based model of the main text, a focal male $i$ searches for a nuptial gift for a fixed number of $\mathrm{Poisson}(T^{i}_\mathrm{m})$ time steps.
+The male will remain outside the mating pool for this number of time steps regardless of whether or not he successfully obtains a nuptial gift.
+Here we instead define male search for nuptial gift as an all-or-nothing strategy to align with our analytical model.
+Males either search in time-out until they find a nuptial gift, or they do not search at all.
+In these simulations, $T^{i}_\mathrm{m}$ is instead defined as the probability that a focal male $i$ searches for a nuptial gift (in the same way that $\rho^{i}$ is defined as the probability that a focal female $i$ rejects a male without a nuptial gift).
+For males that decide to search, the time taken until a nuptial gift is obtained is randomly sampled from an exponential distribution with a rate parameter of $\alpha$.
+This sampling time is then rounded to the nearest integer to determine the number of time steps that a focal male spends outside the mating pool before obtaining a nuptial gift.
+
+Results are qualitatively identical to those in Figure 3 of the main text (Figure S5.1)
+
+\captionsetup{labelformat=empty}
+
+```{r echo = FALSE, eval = TRUE, fig.width = 6, fig.height = 6, fig.cap = "Figure S5.1: Coevolution of male search and female choosiness as a function of nuptial gift search time ($\\alpha$) when male strategy is binary: search or do not search. Points show where the lower 95% confidence interval of male search (blue) and female choosiness (red) exceeds zero, indicating evolution of nuptial gift search or choosiness. Each point includes data from $1000$ replicate simulations with identical starting conditions. Zones are identified that correspond to areas where males search and females are choosy (D), males search but females are not choosy (B), and males do not search and females are not choosy (A), as also depicted in Figures 2 and 3 in the main text. The number of individuals in the population remained at or near carrying capacity of $K = 1000$. In each time step, up to 3000 total pair-wise interactions occurred. Expected female processing time was set to $T_{\\mathrm{f}}=2$ time steps, and $\\gamma$ and $\\alpha$ values in the range [0.0, 2.0] and [0.1, 2.0], respectively, were used."}
+SUMM         <- read.csv(file = "inst/Tm_prob.csv");
+alpha_vals   <- sort(unique(SUMM[,1]));  
+TM_vals      <- tapply(X = SUMM[,3],  INDEX = SUMM[,1], FUN = mean);
+m_vals       <- tapply(X = SUMM[,13], INDEX = SUMM[,1], FUN = mean);
+beta_vals    <- tapply(X = SUMM[,14], INDEX = SUMM[,1], FUN = mean);
+Male_M       <- tapply(X = SUMM[,15], INDEX = SUMM[,1], FUN = mean);
+Female_M     <- tapply(X = SUMM[,16], INDEX = SUMM[,1], FUN = mean);
+Mf_nupt      <- tapply(X = SUMM[,17], INDEX = SUMM[,1], FUN = mean);
+Mf_nonupt    <- tapply(X = SUMM[,18], INDEX = SUMM[,1], FUN = mean);
+
+g_m <- male_IBM_criteria(Male_M = Male_M, alpha = alpha_vals, lambda = 1);
+g_f <- female_IBM_criteria(MGf = Mf_nupt, MLf = Mf_nonupt, lambda = 1, TF = 2);
+
+par(mar = c(5, 5, 1, 1)); 
+plot(x = alpha_vals, y = g_f, type = "n", lwd = 2, cex.lab = 1.25, col = "red",
+     xlab = expression(paste("Nuptial gift search time (", alpha, ")")),
+     ylab = expression(paste("Fitness threshold (", gamma[f], " & ",  gamma[m], 
+                             ")")),
+     ylim = c(0, 2));
+
+for(i in 1:dim(SUMM)[1]){
+  if(SUMM[i, 4] > 0 & SUMM[i, 5] > 0){
+    points(x = SUMM[i, 1], y = SUMM[i, 2], cex = 3, pch = 20, col = "blue");
+  }
+}
+
+for(i in 1:dim(SUMM)[1]){
+  if(SUMM[i, 7] > 0 & SUMM[i, 8] > 0){
+    points(x = SUMM[i, 1], y = SUMM[i, 2], cex = 2, pch = 20, col = "red");
+  }
+}
+points(x = 0.2, y = 1.9, cex = 14, pch = 22, bg = "red", col = "black");
+text(x = 0.2, y = 1.9, labels = "D", cex = 4);
+points(x = 1.3, y = 1.5, cex = 14, pch = 22, bg = "blue", col = "black");
+text(x = 1.3, y = 1.5, labels = "B", cex = 4, col = "white");
+points(x = 1.5, y = 0.5, cex = 14, pch = 22, bg = "white", col = "black");
+text(x = 1.5, y = 0.5, labels = "A", cex = 4);
+```
+
+\captionsetup{labelformat=default}
+
+
+
+\clearpage
+
+
+
+Reference
 =============================================
 
 
